@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="49356ead5b7f4ce990c19b84bf2660d3" Name="Diagram1">
+        <EntityTypeShape EntityType="kyprintMVCModel.Category" Width="1.5" PointX="8.75" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.Contents" Width="1.5" PointX="11" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.Department" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.feedback" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.Menus" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.News" Width="1.5" PointX="14" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.Permission" Width="1.5" PointX="6" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.Product" Width="1.5" PointX="8.125" PointY="19" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.Role" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.RolePermission" Width="1.5" PointX="8.25" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.UserInfo" Width="1.5" PointX="6" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.UserRole" Width="1.5" PointX="13.25" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.UserVipPermission" Width="1.5" PointX="11.25" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.W_WorkFlow" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.W_WorkFlowBranch" Width="2" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.W_WorkFlowNode" Width="2" PointX="2.75" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.W_WorkNodeType" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.W_WrokFlowRole" Width="1.5" PointX="5.25" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.WR_WorkFlowApply" Width="1.5" PointX="8.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="kyprintMVCModel.WR_WrokFlowApplyDetails" Width="1.5" PointX="10.5" PointY="4.5" IsExpanded="true" />
+        <AssociationConnector Association="kyprintMVCModel.FK_Contents_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_News_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_Product_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_Contents_UserInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_Role_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_UserInfo_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_News_UserInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_RolePermission_Permission" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_UserVipPermission_Permission" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_RolePermission_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_UserRole_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_W_WrokFlowRole_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_UserRole_UserInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_UserVipPermission_UserInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_WR_WorkFlowApply_UserInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_WR_WrokFlowApplyDetails_UserInfo" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_W_WorkFlowNode_W_WorkFlow" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_WR_WorkFlowApply_W_WorkFlow" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_W_WorkFlowBranch_W_WorkFlowNode" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_W_WorkFlowBranch_W_WorkFlowNode1" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_W_WorkFlowNode_W_WorkFlowNode" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_W_WorkFlowNode_W_WorkFlowNode1" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_W_WorkFlowNode_W_WorkFlowNode2" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_W_WorkFlowNode_W_WorkNodeType" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_W_WrokFlowRole_W_WorkFlowNode" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_WR_WorkFlowApply_W_WorkFlowNode" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_WR_WrokFlowApplyDetails_W_WorkFlowNode" ManuallyRouted="false" />
+        <AssociationConnector Association="kyprintMVCModel.FK_WR_WrokFlowApplyDetails_WR_WorkFlowApply" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,139 @@
+﻿@{
+    ViewBag.Title = "IndexSon";
+}
+<script type="text/javascript">
+    var $tbGrid = null;
+    var winHelper = {
+    };
+    $(function () {
+        $.globalParas.datagrid.url = '/Admin/Permission/Index/@ViewBag.id';
+        $.globalParas.datagrid.columns = [[
+                { field: 'p_name', title: '权限名称', width: 100 },
+                { field: 'p_areaname', title: '区域名称', width: 100 },
+                { field: 'p_controllername', title: '控制器名称', width: 100 },
+                { field: 'p_actionname', title: '方法名称', width: 100 },
+                {
+                    field: 'p_formmethod', title: '请求方式', width: 100,
+                    formatter: function (value) {
+                        return value == 1 ? "GET" : (value == 2 ? "POST" : "BOTH");
+                    }
+                },
+                {
+                    field: 'p_operationtype', title: '操作方式', width: 100,
+                    formatter: function (value) {
+                        var opeType = "";
+                        switch (value) {
+                            case 1:
+                                opeType = "树菜单节点";
+                                break;
+                            case 2:
+                                opeType = "操作按钮";
+                                break;
+                            case 3:
+                                opeType = "DataGrid组件";
+                                break;
+                            case 4:
+                                opeType = "手动Ajax";
+                                break;
+                            case 5:
+                                opeType = "树菜单请求";
+                                break;
+                        }
+                        return opeType;
+                    }
+                },
+
+                { field: 'p_order', title: '序号', width: 100 }
+        ]];
+        //新增按钮
+        $.globalParas.datagrid.bindBtnEvent('新增', addPerSon);
+        //删除按钮
+        $.globalParas.datagrid.bindBtnEvent('删除', delPerSon);
+        //修改按钮
+        $.globalParas.datagrid.bindBtnEvent('修改', editPerSon);
+        //初始化表格对象
+        $('#tbGrid').datagrid($.globalParas.datagrid);
+        $tbGrid = $('#tbGrid');
+        //初始化窗体对象
+        winHelper.addWin = $('#selfWindow').window({
+            title: '公共窗体',
+            width: 1000,
+            height: 500,
+            modal: true,
+            collapsible: false,
+            minimizable: false,
+            resizable: false
+        }).window('close');
+        //添加一个打开窗体的方法
+        winHelper.showAddWin = function (title, url, width, height) {
+            var trueTitle = '公共窗体';
+            var trueWidth = 1000;
+            var trueHeight = 500;
+            if (trueTitle) trueTitle = title;
+            if (width && parseInt(width) > 100) trueWidth = width;
+            if (height && parseInt(height) > 100) trueHeight = height;
+            if (url && url.length && url.length > 8) {
+                $('#selfWindow iframe').attr('src', url);
+            }
+            //重新设置窗体大小并居中
+            winHelper.addWin.window({
+                title: trueTitle,
+                width: trueWidth,
+                height: trueHeight
+            }).window('center').window('open');
+        }
+
+        //添加一个关闭窗体的方法
+        winHelper.closeAddWin = function () {
+            winHelper.addWin.window('close');
+        }
+    });
+
+    //打开新增子权限窗体
+    function addPerSon() {
+        window.winHelper.showAddWin("新增子权限", "/Admin/Permission/AddPerSon/@ViewBag.id", 500, 400);
+    }
+    //删除子权限
+    function delPerSon() {
+        processWithSelectData(function (rowData) {
+            $.messager.confirm('提示', '您确认要删除吗?', function (res) {
+                if (res) {
+                    $.post('/Admin/Permission/delPerSon/' + rowData.p_id, null, function (data) {
+                        if (data.Statu == 1) {
+                            $.msgBoxObj.showMsgOk(data.Msg);
+                            updatePerSon();
+                        } else {
+                            $.msgBoxObj.showMsgErr(data.Msg);
+                        }
+                    }, 'json')
+                }
+            })
+        })
+    }
+    //修改子权限
+    function editPerSon() {
+        processWithSelectData(function (rowData) {
+            window.winHelper.showAddWin('修改权限', '/Admin/Permission/Modify/' + rowData.p_id, 500, 400);
+        })
+    }
+    //更新数据，关闭新增窗体和修改窗体
+    function updatePerSon() {
+        $tbGrid.datagrid('reload');
+        winHelper.closeAddWin();
+    }
+
+    //统一判断是否有选中行，数据传入回调函数
+    function processWithSelectData(func) {
+        var rowData = $('#tbGrid').datagrid('getSelected');
+        if (rowData == null) {
+            $.msgBoxObj.showMsgInfo("没有选中行！");
+        } else {
+            func(rowData);
+        }
+    }
+</script>
+
+<table id="tbGrid"></table>
+<div id="selfWindow">
+    <iframe style="width:99%;height:98%;"></iframe>
+</div>

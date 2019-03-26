@@ -1,0 +1,82 @@
+﻿@{
+    
+}
+@section headSection{
+    <script type="text/javascript">
+        //定义一个全局变量
+        var $tbGrid = null;
+        //加载dataGrid
+        $(function () {
+            $.globalParas.datagrid.url = '/Admin/User/Index';
+            $.globalParas.datagrid.columns = [[
+                    { title: '登录名', field: 'u_name', width: 100 },
+                    {title:'姓名',field:'real_name',width:100},
+                    {
+                        title: '部门', field: 'Department', width: 100, formatter: function (value) {
+                            return value.dep_name;
+                        }
+                    },
+                    {title:'手机号',field:'u_telephone',width:100},
+                    { title: 'Email', field: 'u_email', width: 100 },
+                    {
+                        title: '注册日期', field: 'u_add_time', width: 40, formatter: function (value) {
+                            return $.globalParas.changeDateFormat(value);
+                        }
+                    }
+            ]];
+            $.globalParas.datagrid.bindBtnEvent('新增', addUser);
+            $.globalParas.datagrid.bindBtnEvent('修改', editUser);
+            $.globalParas.datagrid.bindBtnEvent('删除', delUser);
+            $.globalParas.datagrid.addBtn('设置用户角色',setUserRole,'icon-tip')
+            $('#tbGrid').datagrid($.globalParas.datagrid);
+            //全局变量
+            $tbGrid = $('#tbGrid');
+        });
+
+        //新增窗体
+        function addUser() {
+            $.globalParas.showComWindow('新增用户', '/Admin/User/Add', 500, 400);
+        }
+        //显示修改面板
+        function editUser() {
+            processWithSelectData(function (rowData) {
+                $.globalParas.showComWindow('修改用户', '/Admin/User/Modify/' + rowData.user_id, 500, 400);
+            });
+        }
+        //删除权限
+        function delUser() {
+            processWithSelectData(function (rowData) {
+                $.messager.confirm('提示', '确定要删除吗？', function (res) {
+                    if (res) {
+                        //通过jquery删除权限
+                        $.post("/Admin/User/delete/" + rowData.user_id, null, function (data) {
+                            if (data.Statu == 1) {
+                                $.msgBoxObj.showMsgOk(data.Msg);
+                                $tbGrid.datagrid('reload');
+                            } else {
+                                $.msgBoxObj.showMsgErr(data.Msg);
+                            }
+                        }, 'json');
+                    }
+                }).panel("options").top = $(document).scrollTop() + 80;
+            })
+        }
+        //设置用户角色
+        function setUserRole() {
+            processWithSelectData(function (rowData) {
+                $.globalParas.showComWindow('设置用户角色', '/Admin/User/SetRole/' + rowData.user_id, 500, 300);
+            })
+        }
+        //统一判断是否有选中行，数据传入回调函数
+        function processWithSelectData(func) {
+            var rowData = $('#tbGrid').datagrid('getSelected');
+            if (rowData == null) {
+                $.msgBoxObj.showMsgInfo('没有选中行！');
+            } else {
+                func(rowData);
+            }
+        }
+    </script>
+}
+
+<table id="tbGrid"></table>

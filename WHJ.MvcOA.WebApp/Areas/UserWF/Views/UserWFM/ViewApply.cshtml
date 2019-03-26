@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = ViewBag.aplModel.wf_Title + "申请单明细";
+}
+@using WHJ.MvcOA.Model
+
+@section headSection{
+    <style type="text/css">
+        hr{
+            border:2px dashed #808080;
+        }
+    </style>
+}
+
+<h3>【@ViewBag.aplModel.wf_Title】明细</h3>
+@{
+    WR_WorkFlowApply aplModel = ViewBag.aplModel;
+   IEnumerable< WR_WrokFlowApplyDetails> aplDetail = ViewBag.aplDetailModel;
+}
+<table class="tbList" style="font-size:18px;">
+    <tr>
+        <th>申请内容</th>
+        <th>工作流名称</th>
+        <th>当前节点</th>
+        <th>状态</th>
+        <th>优先级</th>
+    </tr>
+    <tr style="text-align:center;">
+        <td>@aplModel.wf_Content</td>
+        <td>@aplModel.W_WorkFlow.wf_Name</td>
+        <td>@aplModel.W_WorkFlowNode.wn_Name</td>
+        <td>@WHJ.MvcOA.Model.ViewModel.Enumeration.GetWFState().Find(w => w.Value == aplModel.wf_State.ToString()).Text</td>
+        <td>@WHJ.MvcOA.Model.ViewModel.Enumeration.GetPriority().Find(p => p.Value == aplModel.wf_Priority.ToString()).Text</td>
+    </tr>
+</table>
+<hr />
+<h3>申请单明细</h3>
+<table class="tbList" style="font-size:18px;">
+    <tr>
+        <th>处理节点</th>
+        <th>处理人</th>
+        <th>操作</th>
+        <th>内容</th>
+        <th>处理时间</th>
+    </tr>
+    @foreach (var item in aplDetail)
+    {
+        <tr style="text-align:center;">
+        <td>@item.W_WorkFlowNode.wn_Name</td>
+        <td>@item.UserInfo.u_name</td>
+        <td>@WHJ.MvcOA.Model.ViewModel.Enumeration.GetWFOperation().Find(o=>o.Value==item.wrd_Operation.ToString()).Text</td>
+        <td>@item.wrd_Reason</td>
+        <td>@item.wrd_Addtime</td>
+    </tr>
+    }
+</table>

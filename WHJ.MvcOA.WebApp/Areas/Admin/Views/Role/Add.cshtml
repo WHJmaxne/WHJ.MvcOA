@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "添加角色";
+}
+@model WHJ.MvcOA.Model.ViewModel.Role
+
+@section headSection{
+    <script type="text/javascript">
+        function doBegin() {
+            $.msgBoxObj.showMsgWait("新增中...");
+        }
+        function doComplete(xhrObj) {
+            $.processJsonMsg(xhrObj.responseText, function () {
+                window.top.updateTab();
+                $.globalParas.closeComWindow();
+            })
+        }
+    </script>
+}
+
+@using (Ajax.BeginForm("Add", new { area = "Admin", controller = "Role" }, new AjaxOptions()
+{
+    HttpMethod = "post",
+    OnBegin = "doBegin",
+    OnComplete = "doComplete"
+}))
+{
+    <table id="tbAdd" class="tbList">
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.r_name)</td>
+            <td>@Html.TextBoxFor(p => p.r_name)</td>
+            <td>@Html.ValidationMessageFor(p => p.r_name)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.r_depid)</td>
+            <td colspan="2">
+                @Html.DropDownListFor(p => p.r_depid, ViewBag.depList as IEnumerable<SelectListItem>)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.r_remark)</td>
+            <td>@Html.TextAreaFor(p => p.r_remark)</td>
+            <td>@Html.ValidationMessageFor(p => p.r_remark)</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input type="submit" value="确定" />
+            </td>
+        </tr>
+    </table>
+}

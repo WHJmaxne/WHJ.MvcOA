@@ -1,0 +1,144 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>首页</title>
+    <!--导入EasyUI样式-->
+    <link href="/EasyUI/themes/icon.css" rel="stylesheet" />
+    <link href="/EasyUI/themes/default/easyui.css" rel="stylesheet" />
+    <!--导入EasyUI的 JQ 和 JS 文件-->
+    @Scripts.Render("~/EasyUI/js")
+    <!--导入validate验证和ajax，msgbox 文件-->
+    @Scripts.Render("~/ValidateAjaxMsgBox/js")
+    <style type="text/css">
+        * {
+            font-family: 微软雅黑;
+        }
+    </style>
+    <script type="text/javascript">
+        //提供给 iframe 里子页面 操作公共窗体 的一些便捷方法
+        var topHelper = {
+        };
+
+        $(function () {
+            //1.加载权限树
+            $('#menuTree').tree({
+                url: '/Admin/Permission/GetPerTreeData',
+                animate: true,
+                lines: true,
+                dnd: true,
+                onClick: nodeClick
+            });
+            //2.初始化tab容器
+            $('#tabBox').tabs();
+            //3.初始化 公共窗体,并设置为 关闭状态，最后将此窗体对象 赋值给topHelper.comWins属性
+            topHelper.comWin = $('#comWindow').window({
+                title: '公共窗体',
+                width: 1000,
+                height: 550,
+                modal: true,
+                collapsible: false,
+                minimizable: false,
+                resizable: false
+            }).window('close');
+            //3.1添加一个打开窗体的公共方法
+            topHelper.showComWindow = function (title, url, width, height) {
+                var trueTitle = '公共窗体';
+                var trueWidth = 1000;
+                var trueHeight = 550;
+                if (trueTitle) trueTitle = title;
+                if (width && parseInt(width) > 100) trueWidth = width;
+                if (height && parseInt(height) > 100) trueHeight = height;
+                if (url && url.length && url.length > 8) {
+                    $('#comWindow iframe').attr('src', url);
+                }
+                //重新设置窗体大小并居中
+                topHelper.comWin.window({
+                    title: trueTitle,
+                    width: trueWidth,
+                    height: trueHeight
+                }).window('center').window('open');
+            };
+            //3.2.添加一个关闭公共窗体的的公共方法
+            topHelper.closeComWindow = function () {
+                topHelper.comWin.window('close');
+            }
+            $('#comFrame').load = function () {
+                $.globalParas.progressClose();
+            }
+        });
+        //1.0树节点点击添加一个选项卡
+        //var curNodeData = null;
+        function nodeClick(nodeData) {
+            //判断当前选项卡是否存在，如果存在则直接选中，如果不存在，则新添加一个选项卡
+            if ($('#tabBox').tabs('exists', nodeData.text)) {
+                //判断当前的选项卡是否和选中节点文字一样
+                //如果一样，则刷新选项卡
+                var curTab = $('#tabBox').tabs('getSelected');
+                var curTabTitle = $(curTab).panel('options').title;
+                //判断
+                if (curTabTitle == nodeData.text) {
+                    //更新选项卡
+                    $('#tabBox').tabs('update', {
+                        tab: curTab,
+                        options: {
+                            title: nodeData.text,
+                            content: makeIframe(nodeData.attributes.href)
+                        }
+                    })
+                } else {
+                    //如果不一样，则选中选项卡
+                    $("#tabBox").tabs("select", nodeData.text);
+                }
+            } else {
+                //添加一个选项卡
+                $('#tabBox').tabs('add', {
+                    title: nodeData.text,
+                    //选项卡下面要显示的内容
+                    content: makeIframe(nodeData.attributes.href),
+                    closable: true
+                })
+            }
+        }
+        //1.1初始化一个iframe窗体
+        function makeIframe(href) {
+            return '<iframe src="'+href+'" style="border:0px;margin:0px;padding:5px;width:99%;height:480px;"></iframe>'
+        }
+
+        function updateTab() {
+            //获取后台首页的tab容器
+            var $tabBox = $('#tabBox');
+            //获取选中的tab
+            var $curTab = $tabBox.tabs('getSelected');
+            //从选中的tab中获取 iframe
+            var $iframe = $('iframe', $curTab);
+            //从jq对象中获取iframe 并通过 contentWindow 对象操作 iframe里的 window 更新 dataGrid
+            $iframe[0].contentWindow.$tbGrid.datagrid('reload');
+        }
+    </script>
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'north',height:'100',split:false">
+    </div>
+    <div data-options="region:'west',width:'200',title:'菜单导航',split:false">
+        <ul id="menuTree"></ul>
+    </div>
+    <div data-options="region:'center'" style="padding:5px;background:#fff;">
+        <div id="tabBox"></div>
+    </div>
+    <!--公共窗体-->
+    <div id="comWindow">
+        <iframe id="comFrame" style="width:99%;height:97%;"></iframe>
+    </div>
+    <!--公共 进度条-->
+    @*<div id="progressWin" style="position:absolute; left:300px; top:200px; border:2px dashed #ddd; display:none; z-index:99999; background-color:#fff;padding:10px;">
+            <div id="commonProgress" class="easyui-progressbar" style="width:400px; margin:5px auto;"></div>
+        </div>*@
+</body>
+
+</html>

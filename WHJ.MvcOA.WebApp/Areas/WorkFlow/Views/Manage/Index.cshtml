@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@section headSection{
+    <script type="text/javascript">
+        //定义一个全局变量
+        var $tbGrid = null;
+        //加载dataGrid
+        $(function () {
+            $.globalParas.datagrid.url = '/WorkFlow/Manage/Index';
+            $.globalParas.datagrid.columns = [[
+                    { field: 'wf_Name', title: '工作流名称', width: 100 },
+                    {
+                        field: 'W_WorkFlowNode', title: '工作流流程', width: 500, formatter: function (nodes) {
+                            var strNodes = '';
+                            $.each(nodes, function (index, ele) {
+                                strNodes += ele.wn_Name + '->';
+                            });
+                            if (strNodes.length > 2) return strNodes.substr(0, strNodes.length - 2);
+                            else return "暂无";
+                        }
+                    },
+                    { field: 'wf_Remark', title: '工作流说明', width: 100 },
+                    {
+                        field: 'wf_Addtime', title: '添加时间', width: 100, formatter: function (val) {
+                            return $.globalParas.changeDateFormat(val);
+                        }
+                    }
+            ]];
+            $.globalParas.datagrid.bindBtnEvent('新增', addWf);
+            $.globalParas.datagrid.bindBtnEvent('修改', editWf);
+            $.globalParas.datagrid.bindBtnEvent('删除', delWf);
+            $.globalParas.datagrid.addBtn('查看工作流程', showSonNodes, 'icon-tip');
+            $('#tbGrid').datagrid($.globalParas.datagrid);
+            //全局变量
+            $tbGrid = $('#tbGrid');
+        });
+
+        //新增窗体
+        function addWf() {
+            $.globalParas.showComWindow('新增工作流', '/WorkFlow/Manage/Add', 500, 400);
+        }
+        //显示修改面板
+        function editWf() {
+            processWithSelectData(function (rowData) {
+                $.globalParas.showComWindow('修改工作流', '/WorkFlow/Manage/Modify/' + rowData.wf_Id, 500, 400);
+            });
+        }
+        //删除工作流
+        function delWf() {
+            processWithSelectData(function (rowData) {
+                $.messager.confirm('提示', '确定要删除吗？', function (res) {
+                    if (res) {
+                        //通过jquery删除权限
+                        $.post("/WorkFlow/Manage/delete/" + rowData.wf_Id, null, function (data) {
+                            $.processJsonMsg(data, function (json) {
+                                $.globalParas.updateDataGridInTab();
+                            });
+                        }, 'json');
+                    }
+                })
+            })
+        }
+        //查看工作流子流程
+        function showSonNodes() {
+            processWithSelectData(function (rowData) {
+                $.globalParas.showComWindow('【' + rowData.wf_Name + '】流程', '/WorkFlow/Node/Index/' + rowData.wf_Id);
+            });
+        }
+        //统一判断是否有选中行，数据传入回调函数
+        function processWithSelectData(func) {
+            var rowData = $('#tbGrid').datagrid('getSelected');
+            if (rowData == null) {
+                $.msgBoxObj.showMsgInfo('没有选中行！');
+            } else {
+                func(rowData);
+            }
+        }
+    </script>
+}
+
+<table id="tbGrid"></table>

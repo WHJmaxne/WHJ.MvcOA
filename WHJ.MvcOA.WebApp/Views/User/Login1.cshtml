@@ -1,0 +1,242 @@
+﻿@{
+    Layout = null;
+}
+@model WHJ.MvcOA.Model.ViewModel.LoginUser
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>欢迎登录 </title>
+    <!--导入EasyUI样式-->
+    <!--导入EasyUI的 JQ 和 JS 文件-->
+    @Scripts.Render("~/EasyUI/js")
+    <!--导入validate验证和ajax，msgbox 文件-->
+    @Scripts.Render("~/ValidateAjaxMsgBox/js")
+    <script type="text/javascript">
+        onload = function () {
+            document.getElementById('valiData').onclick = function () {
+                this.src = '/Helper/validataCode.ashx?d=' + new Date().getMilliseconds();
+            }
+        };
+        function begin() {
+            $.msgBoxObj.showMsgWait("登录中...");
+        }
+
+        function loginCom(xhrObj) {
+            $.processJsonMsg(xhrObj.responseText, function (jsonObj) {
+                window.location = jsonObj.BackUrl;
+            });
+            //$.msgBoxObj.showMsgOk(xhrObj.responseText);
+        }
+    </script>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            text-align: center;
+            background: #4974A4;
+        }
+
+        #login {
+            width: 740px;
+            margin: 0 auto;
+            font-size: 12px;
+        }
+
+        #loginlogo {
+            width: 700px;
+            height: 100px;
+            overflow: hidden;
+            background: url('login/logo.png') no-repeat;
+            margin-top: 50px;
+        }
+
+        #loginpanel {
+            width: 729px;
+            position: relative;
+            height: 300px;
+        }
+
+        .panel-h {
+            width: 729px;
+            height: 20px;
+            background: url('login/panel-h.gif') no-repeat;
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            z-index: 3;
+        }
+
+        .panel-f {
+            width: 729px;
+            height: 13px;
+            background: url('login/panel-f.gif') no-repeat;
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            z-index: 3;
+        }
+
+        .panel-c {
+            z-index: 2;
+            background: url('login/panel-c.gif') repeat-y;
+            width: 729px;
+            height: 300px;
+        }
+
+        .panel-c-l {
+            position: absolute;
+            left: 60px;
+            top: 40px;
+        }
+
+        .panel-c-r {
+            position: absolute;
+            right: 20px;
+            top: 50px;
+            width: 222px;
+            line-height: 200%;
+            text-align: left;
+        }
+
+        .panel-c-l h3 {
+            color: #556A85;
+            margin-bottom: 10px;
+        }
+
+        .panel-c-l td {
+            padding: 7px;
+        }
+
+        .login-text {
+            height: 24px;
+            left: 24px;
+            border: 1px solid #e9e9e9;
+            background: #f9f9f9;
+        }
+
+        .login-text-focus {
+            border: 1px solid #E6BF73;
+        }
+
+        .login-btn {
+            width: 114px;
+            height: 29px;
+            color: #E9FFFF;
+            line-height: 29px;
+            background: url('login/login-btn.gif') no-repeat;
+            border: none;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        #txtUsername, #code, #txtPassword {
+            width: 191px;
+        }
+
+        #logincopyright {
+            text-align: center;
+            color: White;
+            margin-top: 50px;
+        }
+
+        a {
+            color: Black;
+        }
+
+            a:hover {
+                color: Red;
+                text-decoration: underline;
+            }
+    </style>
+</head>
+<body style="padding: 10px">
+    @using (Ajax.BeginForm(new AjaxOptions()
+        {
+            HttpMethod = "post",
+            OnComplete = "loginCom",
+            OnBegin = "begin"
+        }))
+        {
+        <div id="login">
+            <div id="loginlogo">
+            </div>
+            <div id="loginpanel">
+                <div class="panel-h">
+                </div>
+                <div class="panel-c">
+                    <div class="panel-c-l">
+                        <table cellpadding="0" cellspacing="0">
+                            <tbody>
+                                <tr>
+                                    <td align="left" colspan="2">
+                                        <h3>
+                                            请使用XX后台管理系统账号登录
+                                        </h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        账号：
+                                    </td>
+                                    <td align="left">
+                                        @*<input type="text" name="name" class="login-text" value=" " />*@
+                                        @Html.TextBoxFor(u => u.uLoginName, new { Value = "admin", Class = "login-text" })@Html.ValidationMessageFor(u => u.uLoginName)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="right">
+                                        密码：
+                                    </td>
+                                    <td align="left">
+                                        @Html.PasswordFor(u => u.uPwd, new { value = "111111", Class = "login-text" })@Html.ValidationMessageFor(u => u.uPwd)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        验证码：
+                                    </td>
+                                    <td align="left">
+                                        @Html.TextBoxFor(u => u.uVCode, new { Class = "login-text" })<img id="valiData" src="/Helper/validataCode.ashx" />@Html.ValidationMessageFor(u => u.uVCode)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" colspan="2">
+                                        <input type="submit" value="登陆" />
+                                        @Html.ActionLink("注册", "Register")
+                                        @Html.CheckBoxFor(u => u.uIsCookie, new { Checked = "Checked" })七天免登录？
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel-c-r">
+                        <p>
+                            请从左侧输入登录账号和密码登录
+                        </p>
+                        <p>
+                            如果遇到系统问题，请联系网络管理员。
+                        </p>
+                        <p>
+                            如果没有账号，请联系网站管理员。
+                        </p>
+                        <p>
+                            【显示登录提】
+                        </p>
+                    </div>
+                </div>
+                <div class="panel-f">
+                </div>
+            </div>
+            <div id="logincopyright">
+                Copyright © 2012 xxxx.com
+            </div>
+        </div>
+    }
+</body>
+</html>

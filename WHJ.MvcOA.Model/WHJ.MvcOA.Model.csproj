@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D0343296-8E61-461F-A075-4996567A37FA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WHJ.MvcOA.Model</RootNamespace>
+    <AssemblyName>WHJ.MvcOA.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Category.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Contents.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Department.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EasyUIModel\TreeNode.cs" />
+    <Compile Include="ExtensionModel\Permission.cs" />
+    <Compile Include="feedback.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FormatModel\AjaxMsg.cs" />
+    <Compile Include="FormatModel\AjaxMsgStatu.cs" />
+    <Compile Include="FormatModel\NodeType.cs" />
+    <Compile Include="FormatModel\PageData.cs" />
+    <Compile Include="Menus.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="News.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Permission.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\Category.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\Contents.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\Department.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\feedback.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\Menus.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\News.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\Permission.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\POCO.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\Product.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\Role.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\RolePermission.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\sysdiagrams.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\UserInfo.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\UserRole.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\UserVipPermission.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\WR_WorkFlowApply.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\WR_WrokFlowApplyDetails.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\W_WorkFlow.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\W_WorkFlowBranch.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\W_WorkFlowNode.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\W_WorkNodeType.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCOT4\W_WrokFlowRole.cs">
+      <DependentUpon>POCO.tt</DependentUpon>
+    </Compile>
+    <Compile Include="POCO\Role.cs" />
+    <Compile Include="POCO\UserInfo.cs" />
+    <Compile Include="POCO\WR_WorkFlowApply.cs" />
+    <Compile Include="POCO\W_WorkFlow.cs" />
+    <Compile Include="POCO\W_WorkFlowNode.cs" />
+    <Compile Include="POCO\W_WorkFlowRole.cs" />
+    <Compile Include="Product.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Role.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RolePermission.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserInfo.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserRole.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserVipPermission.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\Enumeration.cs" />
+    <Compile Include="ViewModel\LoginUser.cs" />
+    <Compile Include="ViewModel\Permission.cs" />
+    <Compile Include="ViewModel\Role.cs" />
+    <Compile Include="ViewModel\RolePerssion.cs" />
+    <Compile Include="ViewModel\UserInfo.cs" />
+    <Compile Include="ViewModel\UserRole.cs" />
+    <Compile Include="ViewModel\WoekFlowNode.cs" />
+    <Compile Include="ViewModel\WorkFlowApply.cs" />
+    <Compile Include="ViewModel\W_WorkFlow.cs" />
+    <Compile Include="WR_WorkFlowApply.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WR_WrokFlowApplyDetails.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="W_WorkFlow.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="W_WorkFlowBranch.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="W_WorkFlowNode.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="W_WorkNodeType.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="W_WrokFlowRole.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EntityDeploy Include="Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="App.Config" />
+    <None Include="Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </None>
+    <None Include="Model1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+    <None Include="POCOT4\POCO.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>POCO.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModel2POCOT4\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WHJ.MvcOA.Common\WHJ.MvcOA.Common.csproj">
+      <Project>{bde8e2ac-bb1b-446f-99ca-926888b9a634}</Project>
+      <Name>WHJ.MvcOA.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

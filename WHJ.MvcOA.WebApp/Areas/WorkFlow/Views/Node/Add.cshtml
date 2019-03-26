@@ -1,0 +1,134 @@
+﻿@{
+    ViewBag.Title = "新增子节点";
+}
+@model WHJ.MvcOA.Model.ViewModel.WoekFlowNode
+@section headSection{
+    <script type="text/javascript">
+        var wnPrevNode=@ViewBag.prevNodeId
+        
+        $(function () {
+            //初始化上一个节点下拉框
+            initPrevNodeSelect();
+            //为父节点下拉框设置change事件
+            //$('#wn_PrevNode').change(prevNodeChange);
+            //为业务下拉框设置onChange事件
+            $('#wn_NodeFuncType').change(typeSelected);
+            //设置为隐藏
+            $('#tbody').hide();
+        })
+
+        function doBegin() {
+            $.msgBoxObj.showMsgWait('新增中...');
+        }
+        function doComplete(xhrObj) {
+            $.processJsonMsg(xhrObj.responseText, function (json) {
+                window.parent.updatePerSon();
+                $.globalParas.updateDataGridInTab();
+            })
+        }
+
+        //在上个节点下拉框中增加开始节点和结束节点 
+        var $pervNodeSelect = null;
+        function initPrevNodeSelect() {
+            $pervNodeSelect = $('#wn_PrevNode');
+            $('option', $pervNodeSelect).each(function (index,ele) {
+                ele.innerHTML = '--' + ele.innerHTML + '--';
+            })
+            if ($('option',$pervNodeSelect).length <= 0) {
+                $('<option value="-1" >--设置为开始节点--</option>').appendTo($pervNodeSelect);
+            } else {
+                //设置下拉框默认值为新增的最后一个节点
+                $('<option style="color:#ff0000" value="-1" >--设置为开始节点--</option>').insertBefore('option:first', $pervNodeSelect);
+                $('<option style="color:#ff0000" value="-2" >--设置为结束节点--</option>').appendTo($pervNodeSelect);
+                $pervNodeSelect.val(wnPrevNode);
+            }
+        }
+
+        function prevNodeChange() {
+            var prevNode = $(this);
+            //获取当前下拉框选中的值
+            var curVlaue = prevNode.val();
+            //判断新增节点是否为开始节点或结束节点
+            if (curVlaue == -1 || curVlaue == -2||curVlaue==wnPrevNode) {
+                //若是开始节点或结束节点，则将业务类型选择为普通业务
+                $('#wn_NodeFuncType').val(1);
+                $('#tbody').hide();
+            }
+        }
+
+        //判断业务下拉框在开始/结束节点时，不能选中业务类型
+        function typeSelected() {
+            var NodeFuncType = $(this);
+            //获取当前下拉框选中值
+            var curValue = NodeFuncType.val();
+            //判断是否选中业务类型
+            if (curValue == 2) {
+                //获取上个节点下拉框选中值
+                var curPrevNode = parseInt($pervNodeSelect.val());
+                if (curPrevNode==-1||curPrevNode==-2||curPrevNode==wnPrevNode) {
+                    $.msgBoxObj.showMsgInfo("开始/结束节点不能为业务节点！");
+                    //选择为普通节点
+                    NodeFuncType.val(1);
+                } else {
+                    $('#tbody').toggle();
+                    $('#addBtn').click(function () {
+                        if ($('#wn_NodeFuncClassName').val()=='') {
+                            $('#valiMsg').text('业务类名不能为空！');
+                            return false;
+                        }
+                    });
+                }
+            } else {
+                $('#tbody').toggle();
+            }
+        }
+    </script>
+}
+@using (Ajax.BeginForm("Add", new { area = "WorkFlow", controller = "Node" }, new AjaxOptions()
+{
+    HttpMethod = "post",
+    OnBegin = "doBegin",
+    OnComplete = "doComplete"
+}))
+{
+    <table>
+        <tr>
+            <td>@Html.DisplayNameFor(w => w.wn_Name)</td>
+            <td>@Html.TextBoxFor(w => w.wn_Name)</td>
+            <td>@Html.ValidationMessageFor(w => w.wn_Name)</td>
+        </tr>
+        <tr>
+            <td>上个节点：</td>
+            <td>@Html.DropDownListFor(w=>w.wn_PrevNode,ViewBag.nodeList as IEnumerable<SelectListItem>)</td>
+        </tr>
+        <tr>
+            <td>业务类型：</td>
+            <td>@Html.DropDownListFor(w=>w.wn_NodeFuncType,ViewBag.nodeType as IEnumerable<SelectListItem>)</td>
+            <td></td>
+        </tr>
+        <tbody id="tbody">
+            <tr>
+                <td>
+                    true节点:<br />
+                    @Html.DropDownListFor(n => n.trueNode, ViewBag.nodeList as IEnumerable<SelectListItem>)
+                </td>
+                <td>
+                    false节点:<br />
+                    @Html.DropDownListFor(n => n.falseNode, ViewBag.nodeList as IEnumerable<SelectListItem>)
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>业务类名：</td>
+                <td>@Html.TextBoxFor(n=>n.wn_NodeFuncClassName)</td>
+                <td><span id="valiMsg"></span></td>
+            </tr>
+        </tbody>
+        <tr>
+            <td colspan="3">
+                <input type="submit" id="addBtn" value="添加" />
+                <input type="hidden" id="wn_WorkFlowID" name="wn_WorkFlowID" value="@ViewBag.wfId" />
+            </td>
+        </tr>
+    </table>
+}

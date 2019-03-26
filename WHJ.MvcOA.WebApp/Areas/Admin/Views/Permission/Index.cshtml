@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "查看权限";
+}
+@section headSection{
+    <script type="text/javascript">
+        //定义一个全局变量
+        var $tbGrid = null;
+        //加载dataGrid
+        $(function () {
+            $.globalParas.datagrid.url = '/Admin/Permission/Index/1';
+            $.globalParas.datagrid.columns = [[
+                    { field: 'p_name', title: '权限名称', width: 100 },
+                    { field: 'p_areaname', title: '区域名称', width: 100 },
+                    { field: 'p_controllername', title: '控制器名称', width: 100 },
+                    { field: 'p_actionname', title: '方法名称', width: 100 },
+                    {field: 'p_formmethod', title: '请求方式', width: 100,
+                        formatter: function (value) {
+                            return value == 1 ? "GET" : (value == 2 ? "POST" : "BOTH");}},
+                    {
+                        field: 'p_operationtype', title: '操作方式', width: 100,
+                        formatter: function (value) {
+                            var opeType = "";
+                            switch (value) {
+                                case 1:
+                                    opeType = "树菜单节点";
+                                    break;
+                                case 2:
+                                    opeType = "操作按钮";
+                                    break;
+                                case 3:
+                                    opeType = "DataGrid组件";
+                                    break;
+                                case 4:
+                                    opeType = "手动Ajax";
+                                    break;
+                                case 5:
+                                    opeType = "树菜单请求";
+                                    break;
+                            }
+                            return opeType;
+                        }
+                    },
+
+                    { field: 'p_order', title: '序号', width: 100 }
+            ]];
+            $.globalParas.datagrid.addBtn('查看子权限', viewSons, 'icon-search');
+            $.globalParas.datagrid.bindBtnEvent('新增', addPer);
+            $.globalParas.datagrid.bindBtnEvent('修改', editPer);
+            $.globalParas.datagrid.bindBtnEvent('删除',delPer);
+            $('#tbGrid').datagrid($.globalParas.datagrid);
+            //全局变量
+            $tbGrid = $('#tbGrid');
+        });
+
+        //1.0 查看子权限列表
+        function viewSons() {
+            //获取选中行的数据对象
+            processWithSelectData(function (rowData) {
+                $.globalParas.showComWindow('查看子权限', '/Admin/Permission/IndexSon/' + rowData.p_id,1000,600);
+            })
+        }
+
+        //新增窗体
+        function addPer() {
+            $.globalParas.showComWindow('新增信息','/Admin/Permission/Add',500,400);
+        }
+        //显示修改面板
+        function editPer() {
+            processWithSelectData(function (rowData) {
+                $.globalParas.showComWindow('修改信息', '/Admin/Permission/Modify/' + rowData.p_id, 500, 400);
+            });
+        }
+        //删除权限
+        function delPer() {
+            processWithSelectData(function (rowData) {
+                $.messager.confirm('提示', '确定要删除吗？', function (res) {
+                    if (res) {
+                        //通过jquery删除权限
+                        $.post("/Admin/Permission/IfExsitSons/" + rowData.p_id, null, function (data) {
+                            if (data.Statu == 2) {
+                                $.messager.confirm('提示', data.Msg, function (res) {
+                                    if (res) {
+                                        $.post('/Admin/Permission/delete/' + rowData.p_id, null, function (data) {
+                                            if (data.Statu == 1) {
+                                                $.msgBoxObj.showMsgOk(data.Msg);
+                                                $tbGrid.datagrid('reload');
+                                            } else {
+                                                $.msgBoxObj.showMsgErr(data.Msg);
+                                            }
+                                        });
+                                    }
+                                });
+                            } else {
+                                $tbGrid.datagrid('reload');
+                                $.msgBoxObj.showMsgOk(data.Msg);
+                            }
+                        }, 'json');
+                    }
+                })
+            })
+        }
+          
+        //统一判断是否有选中行，数据传入回调函数
+        function processWithSelectData(func) {
+            var rowData = $('#tbGrid').datagrid('getSelected');
+            if (rowData == null) {
+                $.msgBoxObj.showMsgInfo('没有选中行！');
+            } else {
+                func(rowData);
+            }
+        }
+    </script>
+}
+
+<table id="tbGrid"></table>
+   

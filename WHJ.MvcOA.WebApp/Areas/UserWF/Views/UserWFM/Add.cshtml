@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "提交申请";
+}
+@model WHJ.MvcOA.Model.ViewModel.WorkFlowApply
+
+@section headSection{
+    <script type="text/javascript">
+        function doBegin() {
+            $.msgBoxObj.showMsgWait("提交中...");
+        }
+        function doComplete(xhrObj) {
+            $.processJsonMsg(xhrObj.responseText, function () {
+                $.globalParas.updateDataGridInTab();
+                $.globalParas.closeComWindow();
+            })
+        }
+    </script>    
+}
+
+@using (Ajax.BeginForm("Add", "UserWFM", new { area = "UserWF" }, new AjaxOptions()
+{
+    HttpMethod = "post",
+    OnBegin = "doBegin",
+    OnComplete = "doComplete"
+}))
+{
+    <table>
+        <tr>
+            <td>申请名称：</td>
+            <td>@Html.TextBoxFor(a=>a.wf_Title)</td>
+            <td>@Html.ValidationMessageFor(a=>a.wf_Title)</td>
+        </tr>
+        <tr>
+            <td>申请内容：</td>
+            <td>@Html.TextAreaFor(a=>a.wf_Content)</td>
+            <td>@Html.ValidationMessageFor(a=>a.wf_Content)</td>
+        </tr>
+        <tr>
+            <td>优先级</td>
+            <td colspan="2"><select id="wf_Priority" name="wf_Priority">
+                <option selected value="1">低</option>
+                <option value="2">中</option>
+                <option value="3">高</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input type="submit" id="addBtn" value="提交申请" />
+                <input type="hidden" id="wr_WFId" name="wr_WFId" value="@ViewBag.wfId" />
+            </td>
+        </tr>
+    </table>
+}

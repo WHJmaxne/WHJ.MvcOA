@@ -1,0 +1,1869 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="kyprintMVCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="c_id" />
+          </Key>
+          <Property Name="c_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="c_type" Type="int" Nullable="false" />
+          <Property Name="c_title" Type="nvarchar" MaxLength="100" />
+          <Property Name="parent_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Contents">
+          <Key>
+            <PropertyRef Name="cnt_id" />
+          </Key>
+          <Property Name="cnt_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cnt_title" Type="nvarchar" MaxLength="100" />
+          <Property Name="category_id" Type="int" Nullable="false" />
+          <Property Name="cnt_content" Type="ntext" />
+          <Property Name="cnt_linkurl" Type="nvarchar" MaxLength="400" />
+          <Property Name="cnt_imgurl" Type="nvarchar" MaxLength="400" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="cnt_is_lock" Type="tinyint" Nullable="false" />
+          <Property Name="cnt_add_time" Type="datetime" Nullable="false" />
+          <Property Name="cnt_exp1" Type="nvarchar" MaxLength="400" />
+          <Property Name="cnt_exp2" Type="int" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="dep_id" />
+          </Key>
+          <Property Name="dep_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="dep_pid" Type="int" Nullable="false" />
+          <Property Name="dep_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="dep_remark" Type="nvarchar" MaxLength="500" />
+          <Property Name="dep_isdel" Type="bit" Nullable="false" />
+          <Property Name="dep_addtime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="feedback">
+          <Key>
+            <PropertyRef Name="f_id" />
+          </Key>
+          <Property Name="f_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="f_title" Type="nvarchar" MaxLength="100" />
+          <Property Name="f_content" Type="ntext" />
+          <Property Name="fuser_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="fuser_tel" Type="nvarchar" MaxLength="30" />
+          <Property Name="fuser_qq" Type="nvarchar" MaxLength="30" />
+          <Property Name="fuser_email" Type="nvarchar" MaxLength="100" />
+          <Property Name="fadd_time" Type="datetime" Nullable="false" />
+          <Property Name="freply_content" Type="ntext" />
+          <Property Name="freply_time" Type="datetime" />
+          <Property Name="is_lock" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Menus">
+          <Key>
+            <PropertyRef Name="m_id" />
+          </Key>
+          <Property Name="m_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="m_parent_mid" Type="int" Nullable="false" />
+          <Property Name="m_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="m_url" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="m_sortid" Type="int" Nullable="false" />
+          <Property Name="m_status" Type="int" Nullable="false" />
+          <Property Name="m_picname" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="m_level" Type="int" Nullable="false" />
+          <Property Name="m_remark" Type="nvarchar" MaxLength="50" />
+          <Property Name="m_exp1" Type="nvarchar" MaxLength="50" />
+          <Property Name="m_exp2" Type="int" />
+          <Property Name="m_add_time" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="n_id" />
+          </Key>
+          <Property Name="n_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="category_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="n_title" Type="nvarchar" MaxLength="100" />
+          <Property Name="n_author" Type="nvarchar" MaxLength="255" />
+          <Property Name="n_form" Type="nvarchar" MaxLength="50" />
+          <Property Name="n_content" Type="ntext" />
+          <Property Name="n_sort_id" Type="int" Nullable="false" />
+          <Property Name="n_click" Type="int" Nullable="false" />
+          <Property Name="n_is_lock" Type="int" Nullable="false" />
+          <Property Name="add_time" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="p_id" />
+          </Key>
+          <Property Name="p_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="p_parent" Type="int" Nullable="false" />
+          <Property Name="p_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="p_areaname" Type="nvarchar" MaxLength="50" />
+          <Property Name="p_controllername" Type="nvarchar" MaxLength="50" />
+          <Property Name="p_actionname" Type="nvarchar" MaxLength="50" />
+          <Property Name="p_formmethod" Type="int" Nullable="false" />
+          <Property Name="p_operationtype" Type="int" Nullable="false" />
+          <Property Name="p_ico" Type="nvarchar" MaxLength="50" />
+          <Property Name="p_order" Type="int" Nullable="false" />
+          <Property Name="p_islink" Type="bit" Nullable="false" />
+          <Property Name="p_linkurl" Type="nvarchar" MaxLength="500" />
+          <Property Name="p_isshow" Type="bit" Nullable="false" />
+          <Property Name="p_remark" Type="nvarchar" MaxLength="500" />
+          <Property Name="p_iddel" Type="bit" Nullable="false" />
+          <Property Name="p_addtime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="p_id" />
+          </Key>
+          <Property Name="p_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="p_photo_no" Type="nvarchar" MaxLength="100" />
+          <Property Name="p_title" Type="nvarchar" MaxLength="100" />
+          <Property Name="category_id" Type="int" Nullable="false" />
+          <Property Name="img_url" Type="nvarchar" MaxLength="255" />
+          <Property Name="p_content" Type="nvarchar" MaxLength="2000" />
+          <Property Name="sort_id" Type="int" Nullable="false" />
+          <Property Name="click" Type="int" Nullable="false" />
+          <Property Name="add_time" Type="datetime" Nullable="false" />
+          <Property Name="is_lock" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="r_id" />
+          </Key>
+          <Property Name="r_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="r_depid" Type="int" Nullable="false" />
+          <Property Name="r_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="r_remark" Type="nvarchar" MaxLength="50" />
+          <Property Name="r_isshow" Type="bit" Nullable="false" />
+          <Property Name="r_isdel" Type="bit" Nullable="false" />
+          <Property Name="r_addtime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RolePermission">
+          <Key>
+            <PropertyRef Name="rp_id" />
+          </Key>
+          <Property Name="rp_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rp_rid" Type="int" Nullable="false" />
+          <Property Name="rp_pid" Type="int" Nullable="false" />
+          <Property Name="rp_iddel" Type="bit" Nullable="false" />
+          <Property Name="rp_addtime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="u_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="u_pwd" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="real_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="u_telephone" Type="nvarchar" MaxLength="20" />
+          <Property Name="u_email" Type="nvarchar" MaxLength="50" />
+          <Property Name="u_is_lock" Type="bit" Nullable="false" />
+          <Property Name="u_add_time" Type="datetime" Nullable="false" />
+          <Property Name="u_depid" Type="int" Nullable="false" />
+          <Property Name="u_isdel" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="ur_id" />
+          </Key>
+          <Property Name="ur_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ur_uid" Type="int" Nullable="false" />
+          <Property Name="ur_rid" Type="int" Nullable="false" />
+          <Property Name="ur_IsDel" Type="bit" Nullable="false" />
+          <Property Name="ur_addtime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserVipPermission">
+          <Key>
+            <PropertyRef Name="vip_id" />
+          </Key>
+          <Property Name="vip_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="vip_userid" Type="int" Nullable="false" />
+          <Property Name="vip_permission" Type="int" Nullable="false" />
+          <Property Name="vip_remark" Type="nvarchar" MaxLength="500" />
+          <Property Name="vip_iddel" Type="bit" Nullable="false" />
+          <Property Name="vip_addtime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="W_WorkFlow">
+          <Key>
+            <PropertyRef Name="wf_Id" />
+          </Key>
+          <Property Name="wf_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="wf_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="wf_Remark" Type="nvarchar" MaxLength="500" />
+          <Property Name="wf_IsDel" Type="bit" Nullable="false" />
+          <Property Name="wf_Addtime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="W_WorkFlowBranch">
+          <Key>
+            <PropertyRef Name="wfb_Id" />
+          </Key>
+          <Property Name="wfb_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="wfb_WnParentId" Type="int" />
+          <Property Name="wfb_Result" Type="bit" Nullable="false" />
+          <Property Name="wfb_WnId" Type="int" />
+          <Property Name="wfb_IsDel" Type="bit" Nullable="false" />
+          <Property Name="wfb_Addtime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="W_WorkFlowNode">
+          <Key>
+            <PropertyRef Name="wn_Id" />
+          </Key>
+          <Property Name="wn_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="wn_WorkFlowID" Type="int" Nullable="false" />
+          <Property Name="wn_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="wn_PrevNode" Type="int" />
+          <Property Name="wn_NextNode" Type="int" />
+          <Property Name="wn_NodeType" Type="int" Nullable="false" />
+          <Property Name="wn_NodeFuncType" Type="int" Nullable="false" />
+          <Property Name="wn_NodeFuncClassName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="wn_Order" Type="int" Nullable="false" />
+          <Property Name="wn_IsDel" Type="bit" Nullable="false" />
+          <Property Name="wn_Addtime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="W_WorkNodeType">
+          <Key>
+            <PropertyRef Name="wnt_id" />
+          </Key>
+          <Property Name="wnt_id" Type="int" Nullable="false" />
+          <Property Name="wnt_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="W_WrokFlowRole">
+          <Key>
+            <PropertyRef Name="wfr_Id" />
+          </Key>
+          <Property Name="wfr_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="wfr_WFNode" Type="int" Nullable="false" />
+          <Property Name="wfr_Role" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WR_WorkFlowApply">
+          <Key>
+            <PropertyRef Name="wr_Id" />
+          </Key>
+          <Property Name="wr_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="wr_UserId" Type="int" Nullable="false" />
+          <Property Name="wr_WFId" Type="int" Nullable="false" />
+          <Property Name="wf_CurWFNId" Type="int" Nullable="false" />
+          <Property Name="wf_Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="wf_Content" Type="nvarchar" MaxLength="500" />
+          <Property Name="wf_State" Type="int" Nullable="false" />
+          <Property Name="wf_TargetUserId" Type="int" />
+          <Property Name="wf_Priority" Type="int" Nullable="false" />
+          <Property Name="wf_IsDel" Type="bit" Nullable="false" />
+          <Property Name="wf_Addtime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WR_WrokFlowApplyDetails">
+          <Key>
+            <PropertyRef Name="wrd_Id" />
+          </Key>
+          <Property Name="wrd_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="wrd_Rid" Type="int" Nullable="false" />
+          <Property Name="wrd_NodeId" Type="int" Nullable="false" />
+          <Property Name="wrd_NodeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="wrd_UserId" Type="int" Nullable="false" />
+          <Property Name="wrd_Operation" Type="int" />
+          <Property Name="wrd_Reason" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="wrd_IsDel" Type="bit" Nullable="false" />
+          <Property Name="wrd_Addtime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Contents_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Contents" Type="Self.Contents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="c_id" />
+            </Principal>
+            <Dependent Role="Contents">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contents_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="Contents" Type="Self.Contents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Contents">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="c_id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="c_id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="dep_id" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="r_depid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermission_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+          <End Role="RolePermission" Type="Self.RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="p_id" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="rp_pid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermission_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="RolePermission" Type="Self.RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="r_id" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="rp_rid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserInfo_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="dep_id" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="u_depid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="r_id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="ur_rid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="ur_uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserVipPermission_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+          <End Role="UserVipPermission" Type="Self.UserVipPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="p_id" />
+            </Principal>
+            <Dependent Role="UserVipPermission">
+              <PropertyRef Name="vip_permission" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserVipPermission_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="UserVipPermission" Type="Self.UserVipPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="UserVipPermission">
+              <PropertyRef Name="vip_userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_W_WorkFlowBranch_W_WorkFlowNode">
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="0..1" />
+          <End Role="W_WorkFlowBranch" Type="Self.W_WorkFlowBranch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_Id" />
+            </Principal>
+            <Dependent Role="W_WorkFlowBranch">
+              <PropertyRef Name="wfb_WnId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_W_WorkFlowBranch_W_WorkFlowNode1">
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="0..1" />
+          <End Role="W_WorkFlowBranch" Type="Self.W_WorkFlowBranch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_Id" />
+            </Principal>
+            <Dependent Role="W_WorkFlowBranch">
+              <PropertyRef Name="wfb_WnParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_W_WorkFlowNode_W_WorkFlow">
+          <End Role="W_WorkFlow" Type="Self.W_WorkFlow" Multiplicity="1" />
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlow">
+              <PropertyRef Name="wf_Id" />
+            </Principal>
+            <Dependent Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_WorkFlowID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_W_WorkFlowNode_W_WorkFlowNode">
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="0..1" />
+          <End Role="W_WorkFlowNode1" Type="Self.W_WorkFlowNode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_Id" />
+            </Principal>
+            <Dependent Role="W_WorkFlowNode1">
+              <PropertyRef Name="wn_NextNode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_W_WorkFlowNode_W_WorkFlowNode1">
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="0..1" />
+          <End Role="W_WorkFlowNode1" Type="Self.W_WorkFlowNode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_Id" />
+            </Principal>
+            <Dependent Role="W_WorkFlowNode1">
+              <PropertyRef Name="wn_PrevNode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_W_WorkFlowNode_W_WorkFlowNode2">
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="0..1" />
+          <End Role="W_WorkFlowNode1" Type="Self.W_WorkFlowNode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_Id" />
+            </Principal>
+            <Dependent Role="W_WorkFlowNode1">
+              <PropertyRef Name="wn_PrevNode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_W_WorkFlowNode_W_WorkNodeType">
+          <End Role="W_WorkNodeType" Type="Self.W_WorkNodeType" Multiplicity="1" />
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkNodeType">
+              <PropertyRef Name="wnt_id" />
+            </Principal>
+            <Dependent Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_NodeFuncType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_W_WrokFlowRole_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="W_WrokFlowRole" Type="Self.W_WrokFlowRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="r_id" />
+            </Principal>
+            <Dependent Role="W_WrokFlowRole">
+              <PropertyRef Name="wfr_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_W_WrokFlowRole_W_WorkFlowNode">
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="1" />
+          <End Role="W_WrokFlowRole" Type="Self.W_WrokFlowRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_Id" />
+            </Principal>
+            <Dependent Role="W_WrokFlowRole">
+              <PropertyRef Name="wfr_WFNode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WR_WorkFlowApply_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="WR_WorkFlowApply" Type="Self.WR_WorkFlowApply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="WR_WorkFlowApply">
+              <PropertyRef Name="wr_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WR_WorkFlowApply_W_WorkFlow">
+          <End Role="W_WorkFlow" Type="Self.W_WorkFlow" Multiplicity="1" />
+          <End Role="WR_WorkFlowApply" Type="Self.WR_WorkFlowApply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlow">
+              <PropertyRef Name="wf_Id" />
+            </Principal>
+            <Dependent Role="WR_WorkFlowApply">
+              <PropertyRef Name="wr_WFId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WR_WorkFlowApply_W_WorkFlowNode">
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="1" />
+          <End Role="WR_WorkFlowApply" Type="Self.WR_WorkFlowApply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_Id" />
+            </Principal>
+            <Dependent Role="WR_WorkFlowApply">
+              <PropertyRef Name="wf_CurWFNId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WR_WrokFlowApplyDetails_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="WR_WrokFlowApplyDetails" Type="Self.WR_WrokFlowApplyDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="WR_WrokFlowApplyDetails">
+              <PropertyRef Name="wrd_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WR_WrokFlowApplyDetails_W_WorkFlowNode">
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="1" />
+          <End Role="WR_WrokFlowApplyDetails" Type="Self.WR_WrokFlowApplyDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_Id" />
+            </Principal>
+            <Dependent Role="WR_WrokFlowApplyDetails">
+              <PropertyRef Name="wrd_NodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WR_WrokFlowApplyDetails_WR_WorkFlowApply">
+          <End Role="WR_WorkFlowApply" Type="Self.WR_WorkFlowApply" Multiplicity="1" />
+          <End Role="WR_WrokFlowApplyDetails" Type="Self.WR_WrokFlowApplyDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WR_WorkFlowApply">
+              <PropertyRef Name="wr_Id" />
+            </Principal>
+            <Dependent Role="WR_WrokFlowApplyDetails">
+              <PropertyRef Name="wrd_Rid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="kyprintMVCModelStoreContainer">
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Contents" EntityType="Self.Contents" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="feedback" EntityType="Self.feedback" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menus" EntityType="Self.Menus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permission" EntityType="Self.Permission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolePermission" EntityType="Self.RolePermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserInfo" EntityType="Self.UserInfo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserVipPermission" EntityType="Self.UserVipPermission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="W_WorkFlow" EntityType="Self.W_WorkFlow" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="W_WorkFlowBranch" EntityType="Self.W_WorkFlowBranch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="W_WorkFlowNode" EntityType="Self.W_WorkFlowNode" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="W_WorkNodeType" EntityType="Self.W_WorkNodeType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="W_WrokFlowRole" EntityType="Self.W_WrokFlowRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WR_WorkFlowApply" EntityType="Self.WR_WorkFlowApply" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WR_WrokFlowApplyDetails" EntityType="Self.WR_WrokFlowApplyDetails" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Contents_Category" Association="Self.FK_Contents_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Contents" EntitySet="Contents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contents_UserInfo" Association="Self.FK_Contents_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Contents" EntitySet="Contents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_News_Category" Association="Self.FK_News_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_News_UserInfo" Association="Self.FK_News_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_Department" Association="Self.FK_Role_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermission_Permission" Association="Self.FK_RolePermission_Permission">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="RolePermission" EntitySet="RolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermission_Role" Association="Self.FK_RolePermission_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="RolePermission" EntitySet="RolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserInfo_Department" Association="Self.FK_UserInfo_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_UserInfo" Association="Self.FK_UserRole_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserVipPermission_Permission" Association="Self.FK_UserVipPermission_Permission">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="UserVipPermission" EntitySet="UserVipPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserVipPermission_UserInfo" Association="Self.FK_UserVipPermission_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="UserVipPermission" EntitySet="UserVipPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_W_WorkFlowBranch_W_WorkFlowNode" Association="Self.FK_W_WorkFlowBranch_W_WorkFlowNode">
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+            <End Role="W_WorkFlowBranch" EntitySet="W_WorkFlowBranch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_W_WorkFlowBranch_W_WorkFlowNode1" Association="Self.FK_W_WorkFlowBranch_W_WorkFlowNode1">
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+            <End Role="W_WorkFlowBranch" EntitySet="W_WorkFlowBranch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_W_WorkFlowNode_W_WorkFlow" Association="Self.FK_W_WorkFlowNode_W_WorkFlow">
+            <End Role="W_WorkFlow" EntitySet="W_WorkFlow" />
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_W_WorkFlowNode_W_WorkFlowNode" Association="Self.FK_W_WorkFlowNode_W_WorkFlowNode">
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+            <End Role="W_WorkFlowNode1" EntitySet="W_WorkFlowNode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_W_WorkFlowNode_W_WorkFlowNode1" Association="Self.FK_W_WorkFlowNode_W_WorkFlowNode1">
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+            <End Role="W_WorkFlowNode1" EntitySet="W_WorkFlowNode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_W_WorkFlowNode_W_WorkFlowNode2" Association="Self.FK_W_WorkFlowNode_W_WorkFlowNode2">
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+            <End Role="W_WorkFlowNode1" EntitySet="W_WorkFlowNode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_W_WorkFlowNode_W_WorkNodeType" Association="Self.FK_W_WorkFlowNode_W_WorkNodeType">
+            <End Role="W_WorkNodeType" EntitySet="W_WorkNodeType" />
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_W_WrokFlowRole_Role" Association="Self.FK_W_WrokFlowRole_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="W_WrokFlowRole" EntitySet="W_WrokFlowRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_W_WrokFlowRole_W_WorkFlowNode" Association="Self.FK_W_WrokFlowRole_W_WorkFlowNode">
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+            <End Role="W_WrokFlowRole" EntitySet="W_WrokFlowRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WR_WorkFlowApply_UserInfo" Association="Self.FK_WR_WorkFlowApply_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="WR_WorkFlowApply" EntitySet="WR_WorkFlowApply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WR_WorkFlowApply_W_WorkFlow" Association="Self.FK_WR_WorkFlowApply_W_WorkFlow">
+            <End Role="W_WorkFlow" EntitySet="W_WorkFlow" />
+            <End Role="WR_WorkFlowApply" EntitySet="WR_WorkFlowApply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WR_WorkFlowApply_W_WorkFlowNode" Association="Self.FK_WR_WorkFlowApply_W_WorkFlowNode">
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+            <End Role="WR_WorkFlowApply" EntitySet="WR_WorkFlowApply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WR_WrokFlowApplyDetails_UserInfo" Association="Self.FK_WR_WrokFlowApplyDetails_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="WR_WrokFlowApplyDetails" EntitySet="WR_WrokFlowApplyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WR_WrokFlowApplyDetails_W_WorkFlowNode" Association="Self.FK_WR_WrokFlowApplyDetails_W_WorkFlowNode">
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+            <End Role="WR_WrokFlowApplyDetails" EntitySet="WR_WrokFlowApplyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WR_WrokFlowApplyDetails_WR_WorkFlowApply" Association="Self.FK_WR_WrokFlowApplyDetails_WR_WorkFlowApply">
+            <End Role="WR_WorkFlowApply" EntitySet="WR_WorkFlowApply" />
+            <End Role="WR_WrokFlowApplyDetails" EntitySet="WR_WrokFlowApplyDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="kyprintMVCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="c_id" />
+          </Key>
+          <Property Name="c_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="c_type" Type="Int32" Nullable="false" />
+          <Property Name="c_title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="parent_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Contents" Relationship="Self.FK_Contents_Category" FromRole="Category" ToRole="Contents" />
+          <NavigationProperty Name="News" Relationship="Self.FK_News_Category" FromRole="Category" ToRole="News" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_Category" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Contents">
+          <Key>
+            <PropertyRef Name="cnt_id" />
+          </Key>
+          <Property Name="cnt_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cnt_title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="category_id" Type="Int32" Nullable="false" />
+          <Property Name="cnt_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cnt_linkurl" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="cnt_imgurl" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="cnt_is_lock" Type="Byte" Nullable="false" />
+          <Property Name="cnt_add_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="cnt_exp1" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="cnt_exp2" Type="Int32" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Contents_Category" FromRole="Contents" ToRole="Category" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_Contents_UserInfo" FromRole="Contents" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="dep_id" />
+          </Key>
+          <Property Name="dep_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="dep_pid" Type="Int32" Nullable="false" />
+          <Property Name="dep_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="dep_remark" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="dep_isdel" Type="Boolean" Nullable="false" />
+          <Property Name="dep_addtime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Role_Department" FromRole="Department" ToRole="Role" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_UserInfo_Department" FromRole="Department" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="feedback">
+          <Key>
+            <PropertyRef Name="f_id" />
+          </Key>
+          <Property Name="f_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="f_title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="f_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="fuser_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fuser_tel" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="fuser_qq" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="fuser_email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="fadd_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="freply_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="freply_time" Type="DateTime" Precision="3" />
+          <Property Name="is_lock" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Menus">
+          <Key>
+            <PropertyRef Name="m_id" />
+          </Key>
+          <Property Name="m_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="m_parent_mid" Type="Int32" Nullable="false" />
+          <Property Name="m_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="m_url" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="m_sortid" Type="Int32" Nullable="false" />
+          <Property Name="m_status" Type="Int32" Nullable="false" />
+          <Property Name="m_picname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="m_level" Type="Int32" Nullable="false" />
+          <Property Name="m_remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="m_exp1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="m_exp2" Type="Int32" />
+          <Property Name="m_add_time" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="n_id" />
+          </Key>
+          <Property Name="n_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="category_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="n_title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="n_author" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="n_form" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="n_content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="n_sort_id" Type="Int32" Nullable="false" />
+          <Property Name="n_click" Type="Int32" Nullable="false" />
+          <Property Name="n_is_lock" Type="Int32" Nullable="false" />
+          <Property Name="add_time" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_News_Category" FromRole="News" ToRole="Category" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_News_UserInfo" FromRole="News" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="Permission">
+          <Key>
+            <PropertyRef Name="p_id" />
+          </Key>
+          <Property Name="p_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="p_parent" Type="Int32" Nullable="false" />
+          <Property Name="p_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="p_areaname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="p_controllername" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="p_actionname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="p_formmethod" Type="Int32" Nullable="false" />
+          <Property Name="p_operationtype" Type="Int32" Nullable="false" />
+          <Property Name="p_ico" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="p_order" Type="Int32" Nullable="false" />
+          <Property Name="p_islink" Type="Boolean" Nullable="false" />
+          <Property Name="p_linkurl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="p_isshow" Type="Boolean" Nullable="false" />
+          <Property Name="p_remark" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="p_iddel" Type="Boolean" Nullable="false" />
+          <Property Name="p_addtime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="RolePermission" Relationship="Self.FK_RolePermission_Permission" FromRole="Permission" ToRole="RolePermission" />
+          <NavigationProperty Name="UserVipPermission" Relationship="Self.FK_UserVipPermission_Permission" FromRole="Permission" ToRole="UserVipPermission" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="p_id" />
+          </Key>
+          <Property Name="p_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="p_photo_no" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="p_title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="category_id" Type="Int32" Nullable="false" />
+          <Property Name="img_url" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="p_content" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="sort_id" Type="Int32" Nullable="false" />
+          <Property Name="click" Type="Int32" Nullable="false" />
+          <Property Name="add_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="is_lock" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_Product_Category" FromRole="Product" ToRole="Category" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="r_id" />
+          </Key>
+          <Property Name="r_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="r_depid" Type="Int32" Nullable="false" />
+          <Property Name="r_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="r_remark" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="r_isshow" Type="Boolean" Nullable="false" />
+          <Property Name="r_isdel" Type="Boolean" Nullable="false" />
+          <Property Name="r_addtime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_Role_Department" FromRole="Role" ToRole="Department" />
+          <NavigationProperty Name="RolePermission" Relationship="Self.FK_RolePermission_Role" FromRole="Role" ToRole="RolePermission" />
+          <NavigationProperty Name="UserRole" Relationship="Self.FK_UserRole_Role" FromRole="Role" ToRole="UserRole" />
+          <NavigationProperty Name="W_WrokFlowRole" Relationship="Self.FK_W_WrokFlowRole_Role" FromRole="Role" ToRole="W_WrokFlowRole" />
+        </EntityType>
+        <EntityType Name="RolePermission">
+          <Key>
+            <PropertyRef Name="rp_id" />
+          </Key>
+          <Property Name="rp_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rp_rid" Type="Int32" Nullable="false" />
+          <Property Name="rp_pid" Type="Int32" Nullable="false" />
+          <Property Name="rp_iddel" Type="Boolean" Nullable="false" />
+          <Property Name="rp_addtime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Permission" Relationship="Self.FK_RolePermission_Permission" FromRole="RolePermission" ToRole="Permission" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_RolePermission_Role" FromRole="RolePermission" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="UserInfo">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="u_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="u_pwd" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="real_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="u_telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="u_email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="u_is_lock" Type="Boolean" Nullable="false" />
+          <Property Name="u_add_time" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="u_depid" Type="Int32" Nullable="false" />
+          <Property Name="u_isdel" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Contents" Relationship="Self.FK_Contents_UserInfo" FromRole="UserInfo" ToRole="Contents" />
+          <NavigationProperty Name="Department" Relationship="Self.FK_UserInfo_Department" FromRole="UserInfo" ToRole="Department" />
+          <NavigationProperty Name="News" Relationship="Self.FK_News_UserInfo" FromRole="UserInfo" ToRole="News" />
+          <NavigationProperty Name="UserRole" Relationship="Self.FK_UserRole_UserInfo" FromRole="UserInfo" ToRole="UserRole" />
+          <NavigationProperty Name="UserVipPermission" Relationship="Self.FK_UserVipPermission_UserInfo" FromRole="UserInfo" ToRole="UserVipPermission" />
+          <NavigationProperty Name="WR_WorkFlowApply" Relationship="Self.FK_WR_WorkFlowApply_UserInfo" FromRole="UserInfo" ToRole="WR_WorkFlowApply" />
+          <NavigationProperty Name="WR_WrokFlowApplyDetails" Relationship="Self.FK_WR_WrokFlowApplyDetails_UserInfo" FromRole="UserInfo" ToRole="WR_WrokFlowApplyDetails" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="ur_id" />
+          </Key>
+          <Property Name="ur_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ur_uid" Type="Int32" Nullable="false" />
+          <Property Name="ur_rid" Type="Int32" Nullable="false" />
+          <Property Name="ur_IsDel" Type="Boolean" Nullable="false" />
+          <Property Name="ur_addtime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_UserRole_Role" FromRole="UserRole" ToRole="Role" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_UserRole_UserInfo" FromRole="UserRole" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="UserVipPermission">
+          <Key>
+            <PropertyRef Name="vip_id" />
+          </Key>
+          <Property Name="vip_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="vip_userid" Type="Int32" Nullable="false" />
+          <Property Name="vip_permission" Type="Int32" Nullable="false" />
+          <Property Name="vip_remark" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="vip_iddel" Type="Boolean" Nullable="false" />
+          <Property Name="vip_addtime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Permission" Relationship="Self.FK_UserVipPermission_Permission" FromRole="UserVipPermission" ToRole="Permission" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_UserVipPermission_UserInfo" FromRole="UserVipPermission" ToRole="UserInfo" />
+        </EntityType>
+        <EntityType Name="W_WorkFlow">
+          <Key>
+            <PropertyRef Name="wf_Id" />
+          </Key>
+          <Property Name="wf_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="wf_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="wf_Remark" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="wf_IsDel" Type="Boolean" Nullable="false" />
+          <Property Name="wf_Addtime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="W_WorkFlowNode" Relationship="Self.FK_W_WorkFlowNode_W_WorkFlow" FromRole="W_WorkFlow" ToRole="W_WorkFlowNode" />
+          <NavigationProperty Name="WR_WorkFlowApply" Relationship="Self.FK_WR_WorkFlowApply_W_WorkFlow" FromRole="W_WorkFlow" ToRole="WR_WorkFlowApply" />
+        </EntityType>
+        <EntityType Name="W_WorkFlowBranch">
+          <Key>
+            <PropertyRef Name="wfb_Id" />
+          </Key>
+          <Property Name="wfb_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="wfb_WnParentId" Type="Int32" />
+          <Property Name="wfb_Result" Type="Boolean" Nullable="false" />
+          <Property Name="wfb_WnId" Type="Int32" />
+          <Property Name="wfb_IsDel" Type="Boolean" Nullable="false" />
+          <Property Name="wfb_Addtime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="W_WorkFlowNode" Relationship="Self.FK_W_WorkFlowBranch_W_WorkFlowNode" FromRole="W_WorkFlowBranch" ToRole="W_WorkFlowNode" />
+          <NavigationProperty Name="W_WorkFlowNode1" Relationship="Self.FK_W_WorkFlowBranch_W_WorkFlowNode1" FromRole="W_WorkFlowBranch" ToRole="W_WorkFlowNode" />
+        </EntityType>
+        <EntityType Name="W_WorkFlowNode">
+          <Key>
+            <PropertyRef Name="wn_Id" />
+          </Key>
+          <Property Name="wn_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="wn_WorkFlowID" Type="Int32" Nullable="false" />
+          <Property Name="wn_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="wn_PrevNode" Type="Int32" />
+          <Property Name="wn_NextNode" Type="Int32" />
+          <Property Name="wn_NodeType" Type="Int32" Nullable="false" />
+          <Property Name="wn_NodeFuncType" Type="Int32" Nullable="false" />
+          <Property Name="wn_NodeFuncClassName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="wn_Order" Type="Int32" Nullable="false" />
+          <Property Name="wn_IsDel" Type="Boolean" Nullable="false" />
+          <Property Name="wn_Addtime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="W_WorkFlow" Relationship="Self.FK_W_WorkFlowNode_W_WorkFlow" FromRole="W_WorkFlowNode" ToRole="W_WorkFlow" />
+          <NavigationProperty Name="W_WorkFlowBranch" Relationship="Self.FK_W_WorkFlowBranch_W_WorkFlowNode" FromRole="W_WorkFlowNode" ToRole="W_WorkFlowBranch" />
+          <NavigationProperty Name="W_WorkFlowBranch1" Relationship="Self.FK_W_WorkFlowBranch_W_WorkFlowNode1" FromRole="W_WorkFlowNode" ToRole="W_WorkFlowBranch" />
+          <NavigationProperty Name="NextNode" Relationship="Self.FK_W_WorkFlowNode_W_WorkFlowNode" FromRole="W_WorkFlowNode1" ToRole="W_WorkFlowNode" />
+          <NavigationProperty Name="PrevNode" Relationship="Self.FK_W_WorkFlowNode_W_WorkFlowNode1" FromRole="W_WorkFlowNode1" ToRole="W_WorkFlowNode" />
+          <NavigationProperty Name="W_WorkNodeType" Relationship="Self.FK_W_WorkFlowNode_W_WorkNodeType" FromRole="W_WorkFlowNode" ToRole="W_WorkNodeType" />
+          <NavigationProperty Name="W_WrokFlowRole" Relationship="Self.FK_W_WrokFlowRole_W_WorkFlowNode" FromRole="W_WorkFlowNode" ToRole="W_WrokFlowRole" />
+          <NavigationProperty Name="WR_WorkFlowApply" Relationship="Self.FK_WR_WorkFlowApply_W_WorkFlowNode" FromRole="W_WorkFlowNode" ToRole="WR_WorkFlowApply" />
+        </EntityType>
+        <EntityType Name="W_WorkNodeType">
+          <Key>
+            <PropertyRef Name="wnt_id" />
+          </Key>
+          <Property Name="wnt_id" Type="Int32" Nullable="false" />
+          <Property Name="wnt_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="W_WorkFlowNode" Relationship="Self.FK_W_WorkFlowNode_W_WorkNodeType" FromRole="W_WorkNodeType" ToRole="W_WorkFlowNode" />
+        </EntityType>
+        <EntityType Name="W_WrokFlowRole">
+          <Key>
+            <PropertyRef Name="wfr_Id" />
+          </Key>
+          <Property Name="wfr_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="wfr_WFNode" Type="Int32" Nullable="false" />
+          <Property Name="wfr_Role" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_W_WrokFlowRole_Role" FromRole="W_WrokFlowRole" ToRole="Role" />
+          <NavigationProperty Name="W_WorkFlowNode" Relationship="Self.FK_W_WrokFlowRole_W_WorkFlowNode" FromRole="W_WrokFlowRole" ToRole="W_WorkFlowNode" />
+        </EntityType>
+        <EntityType Name="WR_WorkFlowApply">
+          <Key>
+            <PropertyRef Name="wr_Id" />
+          </Key>
+          <Property Name="wr_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="wr_UserId" Type="Int32" Nullable="false" />
+          <Property Name="wr_WFId" Type="Int32" Nullable="false" />
+          <Property Name="wf_CurWFNId" Type="Int32" Nullable="false" />
+          <Property Name="wf_Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="wf_Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="wf_State" Type="Int32" Nullable="false" />
+          <Property Name="wf_TargetUserId" Type="Int32" />
+          <Property Name="wf_Priority" Type="Int32" Nullable="false" />
+          <Property Name="wf_IsDel" Type="Boolean" Nullable="false" />
+          <Property Name="wf_Addtime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_WR_WorkFlowApply_UserInfo" FromRole="WR_WorkFlowApply" ToRole="UserInfo" />
+          <NavigationProperty Name="W_WorkFlow" Relationship="Self.FK_WR_WorkFlowApply_W_WorkFlow" FromRole="WR_WorkFlowApply" ToRole="W_WorkFlow" />
+          <NavigationProperty Name="W_WorkFlowNode" Relationship="Self.FK_WR_WorkFlowApply_W_WorkFlowNode" FromRole="WR_WorkFlowApply" ToRole="W_WorkFlowNode" />
+          <NavigationProperty Name="WR_WrokFlowApplyDetails" Relationship="Self.FK_WR_WrokFlowApplyDetails_WR_WorkFlowApply" FromRole="WR_WorkFlowApply" ToRole="WR_WrokFlowApplyDetails" />
+        </EntityType>
+        <EntityType Name="WR_WrokFlowApplyDetails">
+          <Key>
+            <PropertyRef Name="wrd_Id" />
+          </Key>
+          <Property Name="wrd_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="wrd_Rid" Type="Int32" Nullable="false" />
+          <Property Name="wrd_NodeId" Type="Int32" Nullable="false" />
+          <Property Name="wrd_NodeName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="wrd_UserId" Type="Int32" Nullable="false" />
+          <Property Name="wrd_Operation" Type="Int32" />
+          <Property Name="wrd_Reason" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="wrd_IsDel" Type="Boolean" Nullable="false" />
+          <Property Name="wrd_Addtime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="UserInfo" Relationship="Self.FK_WR_WrokFlowApplyDetails_UserInfo" FromRole="WR_WrokFlowApplyDetails" ToRole="UserInfo" />
+          <NavigationProperty Name="W_WorkFlowNode" Relationship="Self.FK_WR_WrokFlowApplyDetails_W_WorkFlowNode" FromRole="WR_WrokFlowApplyDetails" ToRole="W_WorkFlowNode" />
+          <NavigationProperty Name="WR_WorkFlowApply" Relationship="Self.FK_WR_WrokFlowApplyDetails_WR_WorkFlowApply" FromRole="WR_WrokFlowApplyDetails" ToRole="WR_WorkFlowApply" />
+        </EntityType>
+        <Association Name="FK_Contents_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Contents" Type="Self.Contents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="c_id" />
+            </Principal>
+            <Dependent Role="Contents">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="c_id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Category">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="c_id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="category_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contents_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="Contents" Type="Self.Contents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="Contents">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="dep_id" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="r_depid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserInfo_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="1" />
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="dep_id" />
+            </Principal>
+            <Dependent Role="UserInfo">
+              <PropertyRef Name="u_depid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_News_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="News" Type="Self.News" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="News">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermission_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+          <End Role="RolePermission" Type="Self.RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="p_id" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="rp_pid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserVipPermission_Permission">
+          <End Role="Permission" Type="Self.Permission" Multiplicity="1" />
+          <End Role="UserVipPermission" Type="Self.UserVipPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Permission">
+              <PropertyRef Name="p_id" />
+            </Principal>
+            <Dependent Role="UserVipPermission">
+              <PropertyRef Name="vip_permission" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RolePermission_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="RolePermission" Type="Self.RolePermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="r_id" />
+            </Principal>
+            <Dependent Role="RolePermission">
+              <PropertyRef Name="rp_rid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="r_id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="ur_rid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_W_WrokFlowRole_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="W_WrokFlowRole" Type="Self.W_WrokFlowRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="r_id" />
+            </Principal>
+            <Dependent Role="W_WrokFlowRole">
+              <PropertyRef Name="wfr_Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="ur_uid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserVipPermission_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="UserVipPermission" Type="Self.UserVipPermission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="UserVipPermission">
+              <PropertyRef Name="vip_userid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WR_WorkFlowApply_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="WR_WorkFlowApply" Type="Self.WR_WorkFlowApply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="WR_WorkFlowApply">
+              <PropertyRef Name="wr_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WR_WrokFlowApplyDetails_UserInfo">
+          <End Role="UserInfo" Type="Self.UserInfo" Multiplicity="1" />
+          <End Role="WR_WrokFlowApplyDetails" Type="Self.WR_WrokFlowApplyDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserInfo">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="WR_WrokFlowApplyDetails">
+              <PropertyRef Name="wrd_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_W_WorkFlowNode_W_WorkFlow">
+          <End Role="W_WorkFlow" Type="Self.W_WorkFlow" Multiplicity="1" />
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlow">
+              <PropertyRef Name="wf_Id" />
+            </Principal>
+            <Dependent Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_WorkFlowID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WR_WorkFlowApply_W_WorkFlow">
+          <End Role="W_WorkFlow" Type="Self.W_WorkFlow" Multiplicity="1" />
+          <End Role="WR_WorkFlowApply" Type="Self.WR_WorkFlowApply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlow">
+              <PropertyRef Name="wf_Id" />
+            </Principal>
+            <Dependent Role="WR_WorkFlowApply">
+              <PropertyRef Name="wr_WFId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_W_WorkFlowBranch_W_WorkFlowNode">
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="0..1" />
+          <End Role="W_WorkFlowBranch" Type="Self.W_WorkFlowBranch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_Id" />
+            </Principal>
+            <Dependent Role="W_WorkFlowBranch">
+              <PropertyRef Name="wfb_WnId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_W_WorkFlowBranch_W_WorkFlowNode1">
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="0..1" />
+          <End Role="W_WorkFlowBranch" Type="Self.W_WorkFlowBranch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_Id" />
+            </Principal>
+            <Dependent Role="W_WorkFlowBranch">
+              <PropertyRef Name="wfb_WnParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_W_WorkFlowNode_W_WorkFlowNode">
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="0..1" />
+          <End Role="W_WorkFlowNode1" Type="Self.W_WorkFlowNode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_Id" />
+            </Principal>
+            <Dependent Role="W_WorkFlowNode1">
+              <PropertyRef Name="wn_NextNode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_W_WorkFlowNode_W_WorkFlowNode1">
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="0..1" />
+          <End Role="W_WorkFlowNode1" Type="Self.W_WorkFlowNode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_Id" />
+            </Principal>
+            <Dependent Role="W_WorkFlowNode1">
+              <PropertyRef Name="wn_PrevNode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_W_WorkFlowNode_W_WorkFlowNode2">
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="0..1" />
+          <End Role="W_WorkFlowNode1" Type="Self.W_WorkFlowNode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_Id" />
+            </Principal>
+            <Dependent Role="W_WorkFlowNode1">
+              <PropertyRef Name="wn_PrevNode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_W_WorkFlowNode_W_WorkNodeType">
+          <End Role="W_WorkNodeType" Type="Self.W_WorkNodeType" Multiplicity="1" />
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkNodeType">
+              <PropertyRef Name="wnt_id" />
+            </Principal>
+            <Dependent Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_NodeFuncType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_W_WrokFlowRole_W_WorkFlowNode">
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="1" />
+          <End Role="W_WrokFlowRole" Type="Self.W_WrokFlowRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_Id" />
+            </Principal>
+            <Dependent Role="W_WrokFlowRole">
+              <PropertyRef Name="wfr_WFNode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WR_WorkFlowApply_W_WorkFlowNode">
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="1" />
+          <End Role="WR_WorkFlowApply" Type="Self.WR_WorkFlowApply" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_Id" />
+            </Principal>
+            <Dependent Role="WR_WorkFlowApply">
+              <PropertyRef Name="wf_CurWFNId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WR_WrokFlowApplyDetails_W_WorkFlowNode">
+          <End Role="W_WorkFlowNode" Type="Self.W_WorkFlowNode" Multiplicity="1" />
+          <End Role="WR_WrokFlowApplyDetails" Type="Self.WR_WrokFlowApplyDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="W_WorkFlowNode">
+              <PropertyRef Name="wn_Id" />
+            </Principal>
+            <Dependent Role="WR_WrokFlowApplyDetails">
+              <PropertyRef Name="wrd_NodeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WR_WrokFlowApplyDetails_WR_WorkFlowApply">
+          <End Role="WR_WorkFlowApply" Type="Self.WR_WorkFlowApply" Multiplicity="1" />
+          <End Role="WR_WrokFlowApplyDetails" Type="Self.WR_WrokFlowApplyDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WR_WorkFlowApply">
+              <PropertyRef Name="wr_Id" />
+            </Principal>
+            <Dependent Role="WR_WrokFlowApplyDetails">
+              <PropertyRef Name="wrd_Rid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="kyprintMVCEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="Contents" EntityType="Self.Contents" />
+          <EntitySet Name="Department" EntityType="Self.Department" />
+          <EntitySet Name="feedback" EntityType="Self.feedback" />
+          <EntitySet Name="Menus" EntityType="Self.Menus" />
+          <EntitySet Name="News" EntityType="Self.News" />
+          <EntitySet Name="Permission" EntityType="Self.Permission" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="RolePermission" EntityType="Self.RolePermission" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="UserInfo" EntityType="Self.UserInfo" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" />
+          <EntitySet Name="UserVipPermission" EntityType="Self.UserVipPermission" />
+          <EntitySet Name="W_WorkFlow" EntityType="Self.W_WorkFlow" />
+          <EntitySet Name="W_WorkFlowBranch" EntityType="Self.W_WorkFlowBranch" />
+          <EntitySet Name="W_WorkFlowNode" EntityType="Self.W_WorkFlowNode" />
+          <EntitySet Name="W_WorkNodeType" EntityType="Self.W_WorkNodeType" />
+          <EntitySet Name="W_WrokFlowRole" EntityType="Self.W_WrokFlowRole" />
+          <EntitySet Name="WR_WorkFlowApply" EntityType="Self.WR_WorkFlowApply" />
+          <EntitySet Name="WR_WrokFlowApplyDetails" EntityType="Self.WR_WrokFlowApplyDetails" />
+          <AssociationSet Name="FK_Contents_Category" Association="Self.FK_Contents_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Contents" EntitySet="Contents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_News_Category" Association="Self.FK_News_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contents_UserInfo" Association="Self.FK_Contents_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="Contents" EntitySet="Contents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_Department" Association="Self.FK_Role_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserInfo_Department" Association="Self.FK_UserInfo_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="UserInfo" EntitySet="UserInfo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_News_UserInfo" Association="Self.FK_News_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="News" EntitySet="News" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermission_Permission" Association="Self.FK_RolePermission_Permission">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="RolePermission" EntitySet="RolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserVipPermission_Permission" Association="Self.FK_UserVipPermission_Permission">
+            <End Role="Permission" EntitySet="Permission" />
+            <End Role="UserVipPermission" EntitySet="UserVipPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RolePermission_Role" Association="Self.FK_RolePermission_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="RolePermission" EntitySet="RolePermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Role" Association="Self.FK_UserRole_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_W_WrokFlowRole_Role" Association="Self.FK_W_WrokFlowRole_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="W_WrokFlowRole" EntitySet="W_WrokFlowRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_UserInfo" Association="Self.FK_UserRole_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserVipPermission_UserInfo" Association="Self.FK_UserVipPermission_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="UserVipPermission" EntitySet="UserVipPermission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WR_WorkFlowApply_UserInfo" Association="Self.FK_WR_WorkFlowApply_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="WR_WorkFlowApply" EntitySet="WR_WorkFlowApply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WR_WrokFlowApplyDetails_UserInfo" Association="Self.FK_WR_WrokFlowApplyDetails_UserInfo">
+            <End Role="UserInfo" EntitySet="UserInfo" />
+            <End Role="WR_WrokFlowApplyDetails" EntitySet="WR_WrokFlowApplyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_W_WorkFlowNode_W_WorkFlow" Association="Self.FK_W_WorkFlowNode_W_WorkFlow">
+            <End Role="W_WorkFlow" EntitySet="W_WorkFlow" />
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WR_WorkFlowApply_W_WorkFlow" Association="Self.FK_WR_WorkFlowApply_W_WorkFlow">
+            <End Role="W_WorkFlow" EntitySet="W_WorkFlow" />
+            <End Role="WR_WorkFlowApply" EntitySet="WR_WorkFlowApply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_W_WorkFlowBranch_W_WorkFlowNode" Association="Self.FK_W_WorkFlowBranch_W_WorkFlowNode">
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+            <End Role="W_WorkFlowBranch" EntitySet="W_WorkFlowBranch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_W_WorkFlowBranch_W_WorkFlowNode1" Association="Self.FK_W_WorkFlowBranch_W_WorkFlowNode1">
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+            <End Role="W_WorkFlowBranch" EntitySet="W_WorkFlowBranch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_W_WorkFlowNode_W_WorkFlowNode" Association="Self.FK_W_WorkFlowNode_W_WorkFlowNode">
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+            <End Role="W_WorkFlowNode1" EntitySet="W_WorkFlowNode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_W_WorkFlowNode_W_WorkFlowNode1" Association="Self.FK_W_WorkFlowNode_W_WorkFlowNode1">
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+            <End Role="W_WorkFlowNode1" EntitySet="W_WorkFlowNode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_W_WorkFlowNode_W_WorkFlowNode2" Association="Self.FK_W_WorkFlowNode_W_WorkFlowNode2">
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+            <End Role="W_WorkFlowNode1" EntitySet="W_WorkFlowNode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_W_WorkFlowNode_W_WorkNodeType" Association="Self.FK_W_WorkFlowNode_W_WorkNodeType">
+            <End Role="W_WorkNodeType" EntitySet="W_WorkNodeType" />
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+          </AssociationSet>
+          <AssociationSet Name="FK_W_WrokFlowRole_W_WorkFlowNode" Association="Self.FK_W_WrokFlowRole_W_WorkFlowNode">
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+            <End Role="W_WrokFlowRole" EntitySet="W_WrokFlowRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WR_WorkFlowApply_W_WorkFlowNode" Association="Self.FK_WR_WorkFlowApply_W_WorkFlowNode">
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+            <End Role="WR_WorkFlowApply" EntitySet="WR_WorkFlowApply" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WR_WrokFlowApplyDetails_W_WorkFlowNode" Association="Self.FK_WR_WrokFlowApplyDetails_W_WorkFlowNode">
+            <End Role="W_WorkFlowNode" EntitySet="W_WorkFlowNode" />
+            <End Role="WR_WrokFlowApplyDetails" EntitySet="WR_WrokFlowApplyDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WR_WrokFlowApplyDetails_WR_WorkFlowApply" Association="Self.FK_WR_WrokFlowApplyDetails_WR_WorkFlowApply">
+            <End Role="WR_WorkFlowApply" EntitySet="WR_WorkFlowApply" />
+            <End Role="WR_WrokFlowApplyDetails" EntitySet="WR_WrokFlowApplyDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="kyprintMVCModelStoreContainer" CdmEntityContainer="kyprintMVCEntities">
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="kyprintMVCModel.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="c_id" ColumnName="c_id" />
+                <ScalarProperty Name="c_type" ColumnName="c_type" />
+                <ScalarProperty Name="c_title" ColumnName="c_title" />
+                <ScalarProperty Name="parent_id" ColumnName="parent_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contents">
+            <EntityTypeMapping TypeName="kyprintMVCModel.Contents">
+              <MappingFragment StoreEntitySet="Contents">
+                <ScalarProperty Name="cnt_id" ColumnName="cnt_id" />
+                <ScalarProperty Name="cnt_title" ColumnName="cnt_title" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="cnt_content" ColumnName="cnt_content" />
+                <ScalarProperty Name="cnt_linkurl" ColumnName="cnt_linkurl" />
+                <ScalarProperty Name="cnt_imgurl" ColumnName="cnt_imgurl" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="cnt_is_lock" ColumnName="cnt_is_lock" />
+                <ScalarProperty Name="cnt_add_time" ColumnName="cnt_add_time" />
+                <ScalarProperty Name="cnt_exp1" ColumnName="cnt_exp1" />
+                <ScalarProperty Name="cnt_exp2" ColumnName="cnt_exp2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Department">
+            <EntityTypeMapping TypeName="kyprintMVCModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="dep_id" ColumnName="dep_id" />
+                <ScalarProperty Name="dep_pid" ColumnName="dep_pid" />
+                <ScalarProperty Name="dep_name" ColumnName="dep_name" />
+                <ScalarProperty Name="dep_remark" ColumnName="dep_remark" />
+                <ScalarProperty Name="dep_isdel" ColumnName="dep_isdel" />
+                <ScalarProperty Name="dep_addtime" ColumnName="dep_addtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="feedback">
+            <EntityTypeMapping TypeName="kyprintMVCModel.feedback">
+              <MappingFragment StoreEntitySet="feedback">
+                <ScalarProperty Name="f_id" ColumnName="f_id" />
+                <ScalarProperty Name="f_title" ColumnName="f_title" />
+                <ScalarProperty Name="f_content" ColumnName="f_content" />
+                <ScalarProperty Name="fuser_name" ColumnName="fuser_name" />
+                <ScalarProperty Name="fuser_tel" ColumnName="fuser_tel" />
+                <ScalarProperty Name="fuser_qq" ColumnName="fuser_qq" />
+                <ScalarProperty Name="fuser_email" ColumnName="fuser_email" />
+                <ScalarProperty Name="fadd_time" ColumnName="fadd_time" />
+                <ScalarProperty Name="freply_content" ColumnName="freply_content" />
+                <ScalarProperty Name="freply_time" ColumnName="freply_time" />
+                <ScalarProperty Name="is_lock" ColumnName="is_lock" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menus">
+            <EntityTypeMapping TypeName="kyprintMVCModel.Menus">
+              <MappingFragment StoreEntitySet="Menus">
+                <ScalarProperty Name="m_id" ColumnName="m_id" />
+                <ScalarProperty Name="m_parent_mid" ColumnName="m_parent_mid" />
+                <ScalarProperty Name="m_name" ColumnName="m_name" />
+                <ScalarProperty Name="m_url" ColumnName="m_url" />
+                <ScalarProperty Name="m_sortid" ColumnName="m_sortid" />
+                <ScalarProperty Name="m_status" ColumnName="m_status" />
+                <ScalarProperty Name="m_picname" ColumnName="m_picname" />
+                <ScalarProperty Name="m_level" ColumnName="m_level" />
+                <ScalarProperty Name="m_remark" ColumnName="m_remark" />
+                <ScalarProperty Name="m_exp1" ColumnName="m_exp1" />
+                <ScalarProperty Name="m_exp2" ColumnName="m_exp2" />
+                <ScalarProperty Name="m_add_time" ColumnName="m_add_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="kyprintMVCModel.News">
+              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="n_id" ColumnName="n_id" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="n_title" ColumnName="n_title" />
+                <ScalarProperty Name="n_author" ColumnName="n_author" />
+                <ScalarProperty Name="n_form" ColumnName="n_form" />
+                <ScalarProperty Name="n_content" ColumnName="n_content" />
+                <ScalarProperty Name="n_sort_id" ColumnName="n_sort_id" />
+                <ScalarProperty Name="n_click" ColumnName="n_click" />
+                <ScalarProperty Name="n_is_lock" ColumnName="n_is_lock" />
+                <ScalarProperty Name="add_time" ColumnName="add_time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permission">
+            <EntityTypeMapping TypeName="kyprintMVCModel.Permission">
+              <MappingFragment StoreEntitySet="Permission">
+                <ScalarProperty Name="p_id" ColumnName="p_id" />
+                <ScalarProperty Name="p_parent" ColumnName="p_parent" />
+                <ScalarProperty Name="p_name" ColumnName="p_name" />
+                <ScalarProperty Name="p_areaname" ColumnName="p_areaname" />
+                <ScalarProperty Name="p_controllername" ColumnName="p_controllername" />
+                <ScalarProperty Name="p_actionname" ColumnName="p_actionname" />
+                <ScalarProperty Name="p_formmethod" ColumnName="p_formmethod" />
+                <ScalarProperty Name="p_operationtype" ColumnName="p_operationtype" />
+                <ScalarProperty Name="p_ico" ColumnName="p_ico" />
+                <ScalarProperty Name="p_order" ColumnName="p_order" />
+                <ScalarProperty Name="p_islink" ColumnName="p_islink" />
+                <ScalarProperty Name="p_linkurl" ColumnName="p_linkurl" />
+                <ScalarProperty Name="p_isshow" ColumnName="p_isshow" />
+                <ScalarProperty Name="p_remark" ColumnName="p_remark" />
+                <ScalarProperty Name="p_iddel" ColumnName="p_iddel" />
+                <ScalarProperty Name="p_addtime" ColumnName="p_addtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="kyprintMVCModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="p_id" ColumnName="p_id" />
+                <ScalarProperty Name="p_photo_no" ColumnName="p_photo_no" />
+                <ScalarProperty Name="p_title" ColumnName="p_title" />
+                <ScalarProperty Name="category_id" ColumnName="category_id" />
+                <ScalarProperty Name="img_url" ColumnName="img_url" />
+                <ScalarProperty Name="p_content" ColumnName="p_content" />
+                <ScalarProperty Name="sort_id" ColumnName="sort_id" />
+                <ScalarProperty Name="click" ColumnName="click" />
+                <ScalarProperty Name="add_time" ColumnName="add_time" />
+                <ScalarProperty Name="is_lock" ColumnName="is_lock" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="kyprintMVCModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="r_id" ColumnName="r_id" />
+                <ScalarProperty Name="r_depid" ColumnName="r_depid" />
+                <ScalarProperty Name="r_name" ColumnName="r_name" />
+                <ScalarProperty Name="r_remark" ColumnName="r_remark" />
+                <ScalarProperty Name="r_isshow" ColumnName="r_isshow" />
+                <ScalarProperty Name="r_isdel" ColumnName="r_isdel" />
+                <ScalarProperty Name="r_addtime" ColumnName="r_addtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RolePermission">
+            <EntityTypeMapping TypeName="kyprintMVCModel.RolePermission">
+              <MappingFragment StoreEntitySet="RolePermission">
+                <ScalarProperty Name="rp_id" ColumnName="rp_id" />
+                <ScalarProperty Name="rp_rid" ColumnName="rp_rid" />
+                <ScalarProperty Name="rp_pid" ColumnName="rp_pid" />
+                <ScalarProperty Name="rp_iddel" ColumnName="rp_iddel" />
+                <ScalarProperty Name="rp_addtime" ColumnName="rp_addtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="kyprintMVCModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserInfo">
+            <EntityTypeMapping TypeName="kyprintMVCModel.UserInfo">
+              <MappingFragment StoreEntitySet="UserInfo">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="u_name" ColumnName="u_name" />
+                <ScalarProperty Name="u_pwd" ColumnName="u_pwd" />
+                <ScalarProperty Name="real_name" ColumnName="real_name" />
+                <ScalarProperty Name="u_telephone" ColumnName="u_telephone" />
+                <ScalarProperty Name="u_email" ColumnName="u_email" />
+                <ScalarProperty Name="u_is_lock" ColumnName="u_is_lock" />
+                <ScalarProperty Name="u_add_time" ColumnName="u_add_time" />
+                <ScalarProperty Name="u_depid" ColumnName="u_depid" />
+                <ScalarProperty Name="u_isdel" ColumnName="u_isdel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRole">
+            <EntityTypeMapping TypeName="kyprintMVCModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="ur_id" ColumnName="ur_id" />
+                <ScalarProperty Name="ur_uid" ColumnName="ur_uid" />
+                <ScalarProperty Name="ur_rid" ColumnName="ur_rid" />
+                <ScalarProperty Name="ur_IsDel" ColumnName="ur_IsDel" />
+                <ScalarProperty Name="ur_addtime" ColumnName="ur_addtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserVipPermission">
+            <EntityTypeMapping TypeName="kyprintMVCModel.UserVipPermission">
+              <MappingFragment StoreEntitySet="UserVipPermission">
+                <ScalarProperty Name="vip_id" ColumnName="vip_id" />
+                <ScalarProperty Name="vip_userid" ColumnName="vip_userid" />
+                <ScalarProperty Name="vip_permission" ColumnName="vip_permission" />
+                <ScalarProperty Name="vip_remark" ColumnName="vip_remark" />
+                <ScalarProperty Name="vip_iddel" ColumnName="vip_iddel" />
+                <ScalarProperty Name="vip_addtime" ColumnName="vip_addtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="W_WorkFlow">
+            <EntityTypeMapping TypeName="kyprintMVCModel.W_WorkFlow">
+              <MappingFragment StoreEntitySet="W_WorkFlow">
+                <ScalarProperty Name="wf_Id" ColumnName="wf_Id" />
+                <ScalarProperty Name="wf_Name" ColumnName="wf_Name" />
+                <ScalarProperty Name="wf_Remark" ColumnName="wf_Remark" />
+                <ScalarProperty Name="wf_IsDel" ColumnName="wf_IsDel" />
+                <ScalarProperty Name="wf_Addtime" ColumnName="wf_Addtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="W_WorkFlowBranch">
+            <EntityTypeMapping TypeName="kyprintMVCModel.W_WorkFlowBranch">
+              <MappingFragment StoreEntitySet="W_WorkFlowBranch">
+                <ScalarProperty Name="wfb_Id" ColumnName="wfb_Id" />
+                <ScalarProperty Name="wfb_WnParentId" ColumnName="wfb_WnParentId" />
+                <ScalarProperty Name="wfb_Result" ColumnName="wfb_Result" />
+                <ScalarProperty Name="wfb_WnId" ColumnName="wfb_WnId" />
+                <ScalarProperty Name="wfb_IsDel" ColumnName="wfb_IsDel" />
+                <ScalarProperty Name="wfb_Addtime" ColumnName="wfb_Addtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="W_WorkFlowNode">
+            <EntityTypeMapping TypeName="kyprintMVCModel.W_WorkFlowNode">
+              <MappingFragment StoreEntitySet="W_WorkFlowNode">
+                <ScalarProperty Name="wn_Id" ColumnName="wn_Id" />
+                <ScalarProperty Name="wn_WorkFlowID" ColumnName="wn_WorkFlowID" />
+                <ScalarProperty Name="wn_Name" ColumnName="wn_Name" />
+                <ScalarProperty Name="wn_PrevNode" ColumnName="wn_PrevNode" />
+                <ScalarProperty Name="wn_NextNode" ColumnName="wn_NextNode" />
+                <ScalarProperty Name="wn_NodeType" ColumnName="wn_NodeType" />
+                <ScalarProperty Name="wn_NodeFuncType" ColumnName="wn_NodeFuncType" />
+                <ScalarProperty Name="wn_NodeFuncClassName" ColumnName="wn_NodeFuncClassName" />
+                <ScalarProperty Name="wn_Order" ColumnName="wn_Order" />
+                <ScalarProperty Name="wn_IsDel" ColumnName="wn_IsDel" />
+                <ScalarProperty Name="wn_Addtime" ColumnName="wn_Addtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="W_WorkNodeType">
+            <EntityTypeMapping TypeName="kyprintMVCModel.W_WorkNodeType">
+              <MappingFragment StoreEntitySet="W_WorkNodeType">
+                <ScalarProperty Name="wnt_id" ColumnName="wnt_id" />
+                <ScalarProperty Name="wnt_name" ColumnName="wnt_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="W_WrokFlowRole">
+            <EntityTypeMapping TypeName="kyprintMVCModel.W_WrokFlowRole">
+              <MappingFragment StoreEntitySet="W_WrokFlowRole">
+                <ScalarProperty Name="wfr_Id" ColumnName="wfr_Id" />
+                <ScalarProperty Name="wfr_WFNode" ColumnName="wfr_WFNode" />
+                <ScalarProperty Name="wfr_Role" ColumnName="wfr_Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WR_WorkFlowApply">
+            <EntityTypeMapping TypeName="kyprintMVCModel.WR_WorkFlowApply">
+              <MappingFragment StoreEntitySet="WR_WorkFlowApply">
+                <ScalarProperty Name="wr_Id" ColumnName="wr_Id" />
+                <ScalarProperty Name="wr_UserId" ColumnName="wr_UserId" />
+                <ScalarProperty Name="wr_WFId" ColumnName="wr_WFId" />
+                <ScalarProperty Name="wf_CurWFNId" ColumnName="wf_CurWFNId" />
+                <ScalarProperty Name="wf_Title" ColumnName="wf_Title" />
+                <ScalarProperty Name="wf_Content" ColumnName="wf_Content" />
+                <ScalarProperty Name="wf_State" ColumnName="wf_State" />
+                <ScalarProperty Name="wf_TargetUserId" ColumnName="wf_TargetUserId" />
+                <ScalarProperty Name="wf_Priority" ColumnName="wf_Priority" />
+                <ScalarProperty Name="wf_IsDel" ColumnName="wf_IsDel" />
+                <ScalarProperty Name="wf_Addtime" ColumnName="wf_Addtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WR_WrokFlowApplyDetails">
+            <EntityTypeMapping TypeName="kyprintMVCModel.WR_WrokFlowApplyDetails">
+              <MappingFragment StoreEntitySet="WR_WrokFlowApplyDetails">
+                <ScalarProperty Name="wrd_Id" ColumnName="wrd_Id" />
+                <ScalarProperty Name="wrd_Rid" ColumnName="wrd_Rid" />
+                <ScalarProperty Name="wrd_NodeId" ColumnName="wrd_NodeId" />
+                <ScalarProperty Name="wrd_NodeName" ColumnName="wrd_NodeName" />
+                <ScalarProperty Name="wrd_UserId" ColumnName="wrd_UserId" />
+                <ScalarProperty Name="wrd_Operation" ColumnName="wrd_Operation" />
+                <ScalarProperty Name="wrd_Reason" ColumnName="wrd_Reason" />
+                <ScalarProperty Name="wrd_IsDel" ColumnName="wrd_IsDel" />
+                <ScalarProperty Name="wrd_Addtime" ColumnName="wrd_Addtime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

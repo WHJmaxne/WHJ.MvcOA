@@ -1,0 +1,98 @@
+﻿@{
+    Layout = null;
+}
+@model WHJ.MvcOA.Model.ViewModel.LoginUser
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>欢迎登录 </title>
+    <!--导入EasyUI样式-->
+    <link href="~/EasyUI/themes/icon.css" rel="stylesheet" />
+    <link href="~/EasyUI/themes/default/easyui.css" rel="stylesheet" />
+    <!--导入EasyUI的 JQ 和 JS 文件-->
+    @Scripts.Render("~/EasyUI/js")
+    <!--导入validate验证和ajax，msgbox 文件-->
+    @Scripts.Render("~/ValidateAjaxMsgBox/js")
+    <style type="text/css">
+        * {
+            font-family: 微软雅黑;
+        }
+
+        #tbLogin {
+            width: 500px;
+            height: 220px;
+            margin: 0px auto;
+        }
+    </style>
+    <script type="text/javascript">
+        onload = function () {
+            document.getElementById('valiData').onclick = function () {
+                this.src = '/Helper/validataCode.ashx?d=' + new Date().getMilliseconds();
+            }
+        };
+        $(function () {
+            $('#divLogin').window({
+                title: '欢迎登录',
+                width: 520,
+                height: 280,
+                collapsible: false,
+                minimizable: false,
+                maximizable: false,
+                closable: false,
+                closed: false,
+                draggable: false,
+                resizable: false,
+                modal: true
+            });
+        })
+
+        function begin() {
+            $.msgBoxObj.showMsgWait("登录中...");
+        }
+
+        function loginCom(xhrObj) {
+            $.processJsonMsg(xhrObj.responseText, function (jsonObj) {
+                window.location = jsonObj.BackUrl;
+            });
+            //$.msgBoxObj.showMsgOk(xhrObj.responseText);
+        }
+    </script>
+</head>
+<body>
+    <div id="divLogin">
+        @using (Ajax.BeginForm(new AjaxOptions()
+        {
+            HttpMethod = "post",
+            OnComplete = "loginCom",
+            OnBegin = "begin"
+        }))
+        {
+            <table id="tbLogin">
+                <tr>
+                    <td>登录名：</td>
+                    <td>@Html.TextBoxFor(u => u.uLoginName, new {Value="admin" })@Html.ValidationMessageFor(u=>u.uLoginName)</td>
+                </tr>
+                <tr>
+                    <td>密码：</td>
+                    <td>@Html.PasswordFor(u => u.uPwd, new { value = "111111" })@Html.ValidationMessageFor(u => u.uPwd)</td>
+                </tr>
+                <tr>
+                    <td>验证码：</td>
+                    <td>@Html.TextBoxFor(u => u.uVCode)<img id="valiData" src="/Helper/validataCode.ashx" />@Html.ValidationMessageFor(u => u.uVCode)</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input type="submit" value="登陆" />
+                        @Html.ActionLink("注册", "Register")
+                        @Html.CheckBoxFor(u => u.uIsCookie, new { Checked = "Checked" })七天免登录？
+                    </td>
+                </tr>
+            </table>
+        }
+    </div>
+</body>
+</html>

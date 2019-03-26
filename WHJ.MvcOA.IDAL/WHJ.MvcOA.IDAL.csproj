@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{28D538EA-2ED0-4BEA-938C-619E88CC89EC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WHJ.MvcOA.IDAL</RootNamespace>
+    <AssemblyName>WHJ.MvcOA.IDAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IBaseDAL.cs" />
+    <Compile Include="IDataSons\ICategory.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\IContents.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\IDepartment.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\Ifeedback.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\IMenus.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\INews.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\IPermission.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\IProduct.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\IRole.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\IRolePermission.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\Isysdiagrams.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\IUserInfo.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\IDataSons.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\IUserRole.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\IUserVipPermission.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\IWR_WorkFlowApply.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\IWR_WrokFlowApplyDetails.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\IW_WorkFlow.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\IW_WorkFlowBranch.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\IW_WorkFlowNode.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\IW_WorkNodeType.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDataSons\IW_WrokFlowRole.cs">
+      <DependentUpon>IDataSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IDBSession.cs" />
+    <Compile Include="IUserInfoDAL.cs" />
+    <Compile Include="IDBSessionSons.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IDBSessionSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WHJ.MvcOA.Model\WHJ.MvcOA.Model.csproj">
+      <Project>{d0343296-8e61-461f-a075-4996567a37fa}</Project>
+      <Name>WHJ.MvcOA.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IDataSons\IDataSons.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IDataSons.cs</LastGenOutput>
+    </None>
+    <None Include="IDBSessionSons.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IDBSessionSons.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

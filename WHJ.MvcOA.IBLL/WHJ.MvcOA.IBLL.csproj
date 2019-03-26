@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{04D89629-C3E0-43A8-BE99-EEDFBAD8E161}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WHJ.MvcOA.IBLL</RootNamespace>
+    <AssemblyName>WHJ.MvcOA.IBLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="IBaseBLL.cs" />
+    <Compile Include="IBLLExtensions\IUserInfoBLL.cs" />
+    <Compile Include="IBLLExtensions\IW_WorkFlowNodeBLL.cs" />
+    <Compile Include="IBLLSession.cs" />
+    <Compile Include="IBLLSons\ICategory.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\IContents.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\IBLLSons.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\IDepartment.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\Ifeedback.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\IMenus.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\INews.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\IPermission.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\IProduct.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\IRole.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\IRolePermission.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\Isysdiagrams.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\IUserInfo.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSessionSons.cs">
+      <DependentUpon>IBLLSessionSons.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="IBLLSons\IUserRole.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\IUserVipPermission.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\IWR_WorkFlowApply.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\IWR_WrokFlowApplyDetails.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\IW_WorkFlow.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\IW_WorkFlowBranch.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\IW_WorkFlowNode.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\IW_WorkNodeType.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IBLLSons\IW_WrokFlowRole.cs">
+      <DependentUpon>IBLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="IBLLSons\IBLLSons.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IBLLSons.cs</LastGenOutput>
+    </None>
+    <None Include="IBLLSessionSons.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IBLLSessionSons.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WHJ.MvcOA.Model\WHJ.MvcOA.Model.csproj">
+      <Project>{d0343296-8e61-461f-a075-4996567a37fa}</Project>
+      <Name>WHJ.MvcOA.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

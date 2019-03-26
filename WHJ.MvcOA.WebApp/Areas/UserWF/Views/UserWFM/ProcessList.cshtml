@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "待审批申请单列表";
+}
+@section headSection{
+    <script type="text/javascript">
+        $(function () {
+            $.globalParas.datagrid.url = '/UserWF/UserWFM/ProcessList';
+            $.globalParas.datagrid.columns = [[
+                    {
+                        field: 'wf_Title', title: '申请标题', width: 100, formatter: function (val, rowData) {
+                            return '<a href="javascript:applyDetail(' + rowData.wr_Id + ',\'' + rowData.wf_Title + ' \')">' + val + '</a>'
+                        }
+                    },
+                    {
+                        field: 'W_WorkFlow', title: '工作流名称', width: 100, formatter: function (val) {
+                            return val.wf_Name;
+                        }
+                    },
+                    {
+                        field: 'W_WorkFlowNode', title: '当前节点', width: 100, formatter: function (val) {
+                            return val.wn_Name;
+                        }
+                    },
+                    {
+                        field: 'wf_State', title: '申请状态', width: 100, formatter: function (val) {
+                            var strVal = '';
+                            switch (val) {
+                                case 0:
+                                    strVal = '已提交';
+                                    break;
+                                case 1:
+                                    strVal = "已拒绝";
+                                    break;
+                                case 2:
+                                    strVal = "审批中";
+                                    break;
+                                default:
+                                    strVal="已结束";
+                                    break;
+                            }
+                            return strVal;
+                        }
+                    },
+                    {
+                        field: 'wf_Priority', title: '优先级', width: 100, formatter: function (val) {
+                            return val == 1 ? '高' : val == 2 ? '中' : '低';
+                        }
+                    },
+                    {
+                        field: 'wf_Addtime', title: '提交时间', width: 100, formatter: function (data) {
+                            return $.globalParas.changeDateFormat(data);
+                        }
+                    }
+            ]];
+            $.globalParas.datagrid.removeBtn('新增');
+            $.globalParas.datagrid.removeBtn('修改');
+            $.globalParas.datagrid.removeBtn('删除');
+            $('#tbGrid').datagrid($.globalParas.datagrid);
+        })
+        function applyDetail(id, title) {
+            $.globalParas.showComWindow('审批【' + title + '】申请', '/UserWF/UserWFM/ApproveApply/' + id, 1100, 600);
+        }
+    </script>
+}
+
+<table id="tbGrid"></table>

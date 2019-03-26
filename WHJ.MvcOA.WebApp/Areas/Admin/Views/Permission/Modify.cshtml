@@ -1,0 +1,102 @@
+﻿@model WHJ.MvcOA.Model.ViewModel.Permission
+
+@{
+    ViewBag.Title = "修改权限";
+}
+
+@section headSection{
+    <script type="text/javascript">
+        var pid=@Model.p_parent
+        function doBegin() {
+            $.msgBoxObj.showMsgWait("修改中...");
+        }
+        function doComplete(xhrObj) {
+            $.processJsonMsg(xhrObj.responseText, function () {
+                window.top.updateTab();
+                $.globalParas.closeComWindow();
+            });
+        }
+        $(function () {
+            $('#p_parent option').each(function (i, ele) {
+                ele.innerHTML = '&nbsp;&nbsp;--' + ele.innerHTML + '--';
+            })
+            $('<option value="1" >父权限</option>').insertBefore('#p_parent option:first');
+            if (pid==1) {
+                $('#p_parent').val(1);
+            } else {
+                $('#p_parent').val(pid);
+            }
+        });
+    </script>
+}
+
+@using (Ajax.BeginForm("Modify", new { area = "Admin", controller = "Permission" }, new AjaxOptions()
+{
+    HttpMethod = "post",
+    OnBegin = "doBegin",
+    OnComplete = "doComplete"
+}))
+{
+    <table id="tbAdd" class="tbList">
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.p_name)</td>
+            <td>@Html.TextBoxFor(p => p.p_name)</td>
+            <td>@Html.ValidationMessageFor(p => p.p_name)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.p_parent)</td>
+            <td colspan="2">
+                @Html.DropDownListFor(p => p.p_parent, ViewBag.parentsList as IEnumerable<SelectListItem>)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.p_areaname)</td>
+            <td>@Html.TextBoxFor(p => p.p_areaname)</td>
+            <td>@Html.ValidationMessageFor(p => p.p_areaname)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.p_controllername)</td>
+            <td>@Html.TextBoxFor(p => p.p_controllername)</td>
+            <td>@Html.ValidationMessageFor(p => p.p_controllername)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.p_actionname)</td>
+            <td>@Html.TextBoxFor(p => p.p_actionname)</td>
+            <td>@Html.ValidationMessageFor(p => p.p_actionname)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.p_formmethod)</td>
+            <td colspan="2">
+                @Html.DropDownListFor(p => p.p_formmethod, ViewBag.requestMethod as IEnumerable<SelectListItem>)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.p_operationtype)</td>
+            <td colspan="2">
+                @Html.DropDownListFor(p => p.p_operationtype, ViewBag.operType as IEnumerable<SelectListItem>)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.p_order)</td>
+            <td>@Html.TextBoxFor(p => p.p_order)</td>
+            <td>@Html.ValidationMessageFor(p => p.p_order)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.p_linkurl)</td>
+            <td>@Html.TextBoxFor(p => p.p_linkurl)</td>
+            <td>@Html.ValidationMessageFor(p => p.p_linkurl)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.p_remark)</td>
+            <td>@Html.TextAreaFor(p => p.p_remark)</td>
+            <td>@Html.ValidationMessageFor(p => p.p_remark)</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input type="submit" value="确定" />
+                @Html.DisplayNameFor(p => p.p_isshow) @Html.CheckBoxFor(p => p.p_isshow)
+                @Html.HiddenFor(p=>p.p_id)
+            </td>
+        </tr>
+    </table>
+}

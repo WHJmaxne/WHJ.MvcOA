@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "修改工作流";
+}
+@model WHJ.MvcOA.Model.ViewModel.W_WorkFlow
+@section headSection{
+    <script type="text/javascript">
+        function doBegin() {
+            $.msgBoxObj.showMsgWait('新增中...');
+        }
+        function doComplete(xhrObj) {
+            $.processJsonMsg(xhrObj.responseText, function (json) {
+                $.globalParas.updateDataGridInTab();
+                $.globalParas.closeComWindow();
+            })
+        }
+    </script>
+}
+@using (Ajax.BeginForm("Modify", new { area = "WorkFlow", controller = "Manage" }, new AjaxOptions()
+{
+    HttpMethod = "post",
+    OnBegin = "doBegin",
+    OnComplete = "doComplete"
+}))
+{
+    <table>
+        <tr>
+            <td>@Html.DisplayNameFor(w => w.wf_Name)</td>
+            <td>@Html.TextBoxFor(w => w.wf_Name)</td>
+            <td>@Html.ValidationMessageFor(w => w.wf_Name)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(w => w.wf_Remark)</td>
+            <td>@Html.TextAreaFor(w => w.wf_Remark)</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="3"><input type="submit" id="addBtn" value="添加" /></td>
+            @Html.HiddenFor(w=>w.wf_Id)
+        </tr>
+    </table>
+}

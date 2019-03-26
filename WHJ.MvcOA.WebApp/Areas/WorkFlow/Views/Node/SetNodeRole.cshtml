@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "SetNodeRole";
+}
+@section headSection{
+    <script type="text/javascript">
+        var wnId = @ViewBag.wnId
+        $(function () {
+            //默认选中id为1的部门
+            var depId = 1;
+            $('#getDep').val(depId);
+            //部门下拉框的change事件
+            $('#getDep').change(getRoles);
+            //显示部门id为1的角色
+            getDepRoles(depId);
+            //设置审批角色
+            $('#setNodeRole').click(addRoles);
+            //鼠标悬停时显示提示信息
+            $('#setRoles').tooltip({ position: 'right', content: '<span style="color:#000000">按住Ctrl或Shift可多选！</span>', onShow: function () { $(this).tooltip('tip').css({ backgroundColor: '#D0D9D8', borderColor: '#95B8E7' }); } });
+        })
+        //根据选择部门一部请求部门角色数据
+        function getRoles() {
+            var dep = $(this);
+            var depId = dep.val();
+            var roleList = $('#setRoles');
+            roleList.empty();
+            getDepRoles(depId);
+        }
+        //异步请求部门角色数据
+        function getDepRoles(depId) {
+            $.post('/WorkFlow/Node/GetRoles/' + depId, null, function (data) {
+                for (var i = 0; i < data.length; i++) {
+                    $('<option value=' + data[i].r_id + '>' + data[i].r_name + '</option>').appendTo($('#setRoles'));
+                }
+            }, 'json');
+        }
+        //执行设置审批角色
+        function addRoles() {
+            //得到选中角色的value数组
+            var roleIds = $('#setRoles').val();
+            if (roleIds == null) {
+                $.msgBoxObj.showMsgInfo("请选择角色！");
+                return;
+            }
+            var roleStrIds = '';
+            //将数组转成字符串
+            $.each(roleIds, function (index, ele) {
+                if (index == roleIds.length - 1) {
+                    roleStrIds += ele;
+                } else {
+                    roleStrIds += ele + ',';
+                }
+            });
+            //请求服务器执行设置审批角色
+            $.post('/WorkFlow/Node/SetNodeRole/' + wnId, { rolesId: roleStrIds }, function (data) {
+                $.processJsonMsg(data, function (json) {
+                    window.parent.updatePerSon();
+                })
+            }, 'json')
+        }
+
+    </script>
+}
+<table style="width:300px;">
+    <tr>
+        <td>部门</td>
+        <td>角色</td>
+    </tr>
+    <tr>
+        <td>
+            <select id="getDep" size="8" name="getDep" style="width:120px;">
+                @foreach (var item in ViewBag.depList as IEnumerable<WHJ.MvcOA.Model.Department>)
+                {
+                    <option value="@item.dep_id">@item.dep_name</option>
+                }
+            </select>
+        </td>
+        <td>
+            <select id="setRoles" size="8" name="setRoles" multiple="multiple" style="width:120px;"></select>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2"><input type="submit" id="setNodeRole" value="设置角色" /></td>
+    </tr>
+</table>

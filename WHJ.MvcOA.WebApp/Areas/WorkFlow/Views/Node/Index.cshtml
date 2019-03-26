@@ -1,0 +1,159 @@
+﻿@{
+    ViewBag.Title = "查看工作流";
+}
+<script type="text/javascript">
+    var $tbGrid = null;
+    var winHelper = {
+    };
+    var wId=@ViewBag.wId
+    $(function () {
+        $.globalParas.datagrid.url = '/WorkFlow/Node/Index/'+wId;
+        $.globalParas.datagrid.columns = [[
+                    {
+                        title: '节点名称', field: 'wn_Name', width: 100
+                    },
+                    {
+                        title: '节点审批角色', field: 'W_WrokFlowRole', width: 100, formatter: function (roles) {
+                            var strNodeNames = "";
+                            $.each(roles, function (index, ele) {
+                                strNodeNames += ele.Role.r_name + ",";
+                            });
+                            //去掉最后一个逗号
+                            if (strNodeNames.length > 1) strNodeNames = strNodeNames.substr(0, strNodeNames.length - 1);
+                            else return "暂无";
+                            return strNodeNames;
+                        }
+                    },
+                    {
+                        title: '上个节点', field: 'PrevNode', width: 100, formatter: function (val) {
+                            return val.wn_Name;
+                        }
+                    },
+                    {
+                        title: '下个节点', field: 'NextNode', width: 100, formatter: function (val) {
+                            return val.wn_Name;
+                        }
+                    },
+                    {
+                        //1-开始节点，2-运行节点，3-结束节点
+                        title: '节点类型', field: 'wn_NodeType', width: 100, formatter: function (val) {
+                            return val == 1 ? "开始节点" : val == 2 ? "运行节点" : "结束节点";
+                        }
+                    },
+                    {
+                        title: '节点业务类型', field: 'W_WorkNodeType', width: 100, formatter: function (val) {
+                            return val.wnt_name;
+                        }
+                    },
+                    {
+                        title: '序号', field: 'wn_Order', width: 100
+                    },
+                    {
+                        title: '业务类名', field: 'wn_NodeFuncClassName', width: 100
+                    }
+        ]];
+        //新增按钮
+        $.globalParas.datagrid.bindBtnEvent('新增', addNodeSon);
+        //删除按钮
+        $.globalParas.datagrid.bindBtnEvent('删除', delNodeSon);
+        //修改按钮
+        $.globalParas.datagrid.removeBtn('修改');
+        //设置审批角色按钮
+        $.globalParas.datagrid.addBtn('设置审批角色', setNodeRole, 'icon-tip');
+        //初始化表格对象
+        $('#tbGrid').datagrid($.globalParas.datagrid);
+        $tbGrid = $('#tbGrid');
+        //初始化窗体对象
+        winHelper.addWin = $('#selfWindow').window({
+            title: '公共窗体',
+            width: 1000,
+            height: 500,
+            modal: true,
+            collapsible: false,
+            minimizable: false,
+            resizable: false
+        }).window('close');
+        //添加一个打开窗体的方法
+        winHelper.showAddWin = function (title, url, width, height) {
+            var trueTitle = '公共窗体';
+            var trueWidth = 1000;
+            var trueHeight = 500;
+            if (trueTitle) trueTitle = title;
+            if (width && parseInt(width) > 100) trueWidth = width;
+            if (height && parseInt(height) > 100) trueHeight = height;
+            if (url && url.length && url.length > 8) {
+                $('#selfWindow iframe').attr('src', url);
+            }
+            //重新设置窗体大小并居中
+            winHelper.addWin.window({
+                title: trueTitle,
+                width: trueWidth,
+                height: trueHeight
+            }).window('center').window('open');
+        }
+
+        //添加一个关闭窗体的方法
+        winHelper.closeAddWin = function () {
+            winHelper.addWin.window('close');
+        }
+    });
+    
+    //打开新增窗体
+    function addNodeSon() {
+        window.winHelper.showAddWin("新增节点", "/WorkFlow/Node/Add/"+wId, 500, 400);
+    }
+    //删除工作流节点
+    function delNodeSon() {
+        processWithSelectData(function (rowData) {
+            $.messager.confirm('提示', '您确认要删除吗?', function (res) {
+                if (res) {
+                    $.post('/WorkFlow/Node/delete/' + rowData.wn_Id, null, function (data) {
+                        if (data.Statu == 2) {
+                            $.messager.confirm('提示', data.Msg, function (res) {
+                                if (res) {
+                                    $.post('/WorkFlow/Node/delBranch/' + rowData.wn_Id, null, function (data) {
+                                        $.processJsonMsg(data, function (json) {
+                                            $tbGrid.datagrid('reload');
+                                            $.globalParas.updateDataGridInTab();
+                                        })
+                                    })
+                                }
+                            })
+                        } else {
+                            $.processJsonMsg(data, function (json) {
+                                $tbGrid.datagrid('reload');
+                                $.globalParas.updateDataGridInTab();
+                            })
+                        }
+                    }, 'json')
+                }
+            })
+        })
+    }
+    //设置审批角色
+    function setNodeRole() {
+        processWithSelectData(function (rowData) {
+            winHelper.showAddWin('设置【' + rowData.wn_Name + '】审批角色', '/WorkFlow/Node/SetNodeRole/' + rowData.wn_Id, 400, 400);
+        })
+    }
+    //更新数据，关闭新增窗体和修改窗体
+    function updatePerSon() {
+        $tbGrid.datagrid('reload');
+        winHelper.closeAddWin();
+    }
+
+    //统一判断是否有选中行，数据传入回调函数
+    function processWithSelectData(func) {
+        var rowData = $('#tbGrid').datagrid('getSelected');
+        if (rowData == null) {
+            $.msgBoxObj.showMsgInfo("没有选中行！");
+        } else {
+            func(rowData);
+        }
+    }
+</script>
+
+<table id="tbGrid"></table>
+<div id="selfWindow">
+    <iframe style="width:99%;height:98%;"></iframe>
+</div>

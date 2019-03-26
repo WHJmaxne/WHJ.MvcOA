@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "角色列表";
+}
+
+
+@section headSection{
+    <script type="text/javascript">
+        var $tbGrid = null;
+        $(function () {
+            $.globalParas.datagrid.url = "/Admin/Role/Index";
+            $.globalParas.datagrid.columns = [[
+                    {
+                        title: '显示', field: 'r_isshow', width: 20, formatter: function (value) {
+                            return value == true ? "√" : "×";
+                        }
+                    },
+                    { title: '角色名', field: 'r_name', width: 100 },
+                    {
+                        //使用 返回的 json数组里的 对象 的 Ou_Department 外键属性
+                        title: '部门名称', field: 'Department', width: 100, formatter: function (va) {
+                            return va.dep_name;//返回 部门 名称
+                        }
+                    },
+                    {
+                        title: '添加日期', field: 'r_addtime', width: 40, formatter: function (value) {
+                            return $.globalParas.changeDateFormat(value);
+                        }
+                    }
+            ]];
+            $.globalParas.datagrid.bindBtnEvent("新增", addRole);
+            $.globalParas.datagrid.bindBtnEvent("修改", editRole);
+            $.globalParas.datagrid.bindBtnEvent("删除", delRole);
+            $.globalParas.datagrid.addBtn("设置角色权限", setRolePers, "icon-tip");
+
+            //初始化 表格控件
+            $tbGrid = $("#tbGrid").datagrid($.globalParas.datagrid);
+        })
+
+        //2.0 打开新增面板
+        function addRole() {
+            $.globalParas.showComWindow("新增角色", "/Admin/Role/Add", 500, 400);
+        }
+
+        //3.0 显示修改面板
+        function editRole() {
+            processWithSelectData(function (rowData) {
+                $.globalParas.showComWindow("修改角色", "/Admin/Role/Modify/" + rowData.r_id, 500, 400);
+            });
+        }
+        //删除数据
+        function delRole() {
+            processWithSelectData(function (rowData) {
+                $.messager.confirm('提示', '您确定要删除吗？', function (res) {
+                    if (res) {
+                        $.post('/Admin/Role/delete/' + rowData.r_id, null, function (data) {
+                            if (data.Statu==1) {
+                                $.msgBoxObj.showMsgOk(data.Msg);
+                                $tbGrid.datagrid('reload');
+                            } else {
+                                $.msgBoxObj.showMsgErr(data.Msg);
+                            }
+                        }, 'json')
+                    }
+                })
+            })
+        }
+
+        //5.0 设置角色权限
+        function setRolePers() {
+            processWithSelectData(function (rowData) {
+                $.globalParas.showComWindow("设置角色权限", "/Admin/Role/SetNodeRole/" + rowData.r_id, 350, 560);
+            });
+        }
+
+        //统一判断是否有选中行，数据传入回调函数
+        function processWithSelectData(func) {
+            var rowData = $('#tbGrid').datagrid('getSelected');
+            if (rowData == null) {
+                $.msgBoxObj.showMsgInfo('没有选中行！');
+            } else {
+                func(rowData);
+            }
+        }
+    </script>
+}
+<table id="tbGrid"></table>

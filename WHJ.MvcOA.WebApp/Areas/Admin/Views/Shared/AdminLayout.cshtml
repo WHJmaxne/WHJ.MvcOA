@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <!--导入EasyUI样式-->
+    <link href="/EasyUI/themes/icon.css" rel="stylesheet" />
+    <link href="/EasyUI/themes/metro/easyui.css" rel="stylesheet" />
+    <!--导入EasyUI的 JQ 和 JS 文件-->
+    <script src="/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="/EasyUI/jquery.easyui.min.js"></script>
+    <script src="/EasyUI/locale/easyui-lang-zh_CN.js"></script>
+    <script src="/EasyUI/jquery.easyui.GlobalParas.js"></script>
+    @*@Scripts.Render("~/EasyUI/js")*@
+    <!--导入validate验证和ajax，msgbox 文件-->
+    @Scripts.Render("~/ValidateAjaxMsgBox/js")
+    <style type="text/css">
+        * {
+            font-family: 微软雅黑;
+        }
+        .tbList {
+            border: 1px solid #ddd;
+            width: 99%;
+            margin: 2px auto;
+            border-collapse: collapse;
+        }
+
+         .tbList td, .tbList th {
+                border: 1px solid #ddd;
+                padding: 5px;
+         }
+    </style>
+    @RenderSection("headSection", required: false)
+</head>
+<body>
+    @RenderBody()
+</body>
+</html>

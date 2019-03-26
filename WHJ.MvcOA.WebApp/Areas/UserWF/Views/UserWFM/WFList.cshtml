@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@section headSection{
+    <script type="text/javascript">
+        //定义一个全局变量
+        var $tbGrid = null;
+        //加载dataGrid
+        $(function () {
+            $.globalParas.datagrid.url = '/UserWF/UserWFM/WFList';
+            $.globalParas.datagrid.columns = [[
+                    { field: 'wf_Name', title: '工作流名称', width: 100 },
+                    {
+                        field: 'W_WorkFlowNode', title: '工作流流程', width: 500, formatter: function (nodes) {
+                            var strNodes = '';
+                            $.each(nodes, function (index, ele) {
+                                strNodes += ele.wn_Name + '->';
+                            });
+                            if (strNodes.length > 2) return strNodes.substr(0, strNodes.length - 2);
+                            else return "暂无";
+                        }
+                    },
+                    { field: 'wf_Remark', title: '工作流说明', width: 100 },
+                    {
+                        field: 'wf_Addtime', title: '添加时间', width: 100, formatter: function (val) {
+                            return $.globalParas.changeDateFormat(val);
+                        }
+                    }
+            ]];
+            $.globalParas.datagrid.removeBtn('新增');
+            $.globalParas.datagrid.removeBtn('修改');
+            $.globalParas.datagrid.removeBtn('删除');
+            $.globalParas.datagrid.addBtn('填写申请', addWorkFlow, 'icon-add');
+            $('#tbGrid').datagrid($.globalParas.datagrid);
+            //全局变量
+            $tbGrid = $('#tbGrid');
+        });
+
+        //填写申请
+        function addWorkFlow() {
+            processWithSelectData(function (rowData) {
+                $.globalParas.showComWindow('【' + rowData.wf_Name + '】流程', '/UserWF/UserWFM/Add/' + rowData.wf_Id, 500, 400);
+            });
+        }
+        //统一判断是否有选中行，数据传入回调函数
+        function processWithSelectData(func) {
+            var rowData = $('#tbGrid').datagrid('getSelected');
+            if (rowData == null) {
+                $.msgBoxObj.showMsgInfo('没有选中行！');
+            } else {
+                func(rowData);
+            }
+        }
+    </script>
+}
+
+<table id="tbGrid"></table>

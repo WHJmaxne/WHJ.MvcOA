@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{16190936-E1CB-49C8-97A8-FA51B35F6FD5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WHJ.MvcOA.BLL</RootNamespace>
+    <AssemblyName>WHJ.MvcOA.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\WHJ.MvcOA.WebApp\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseBLL.cs" />
+    <Compile Include="BLLExtensions\UserInfoBLL.cs" />
+    <Compile Include="BLLExtensions\W_WorkFlowNodeBLL.cs" />
+    <Compile Include="BLLSons\Category.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\Contents.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\BLLSons.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\Department.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\feedback.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\Menus.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\News.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\Permission.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\Product.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\Role.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\RolePermission.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\sysdiagrams.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\UserInfo.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\UserRole.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\UserVipPermission.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\WR_WorkFlowApply.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\WR_WrokFlowApplyDetails.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\W_WorkFlow.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\W_WorkFlowBranch.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\W_WorkFlowNode.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\W_WorkNodeType.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BLLSons\W_WrokFlowRole.cs">
+      <DependentUpon>BLLSons.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BLLSons\BLLSons.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>BLLSons.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WHJ.MvcOA.Common\WHJ.MvcOA.Common.csproj">
+      <Project>{bde8e2ac-bb1b-446f-99ca-926888b9a634}</Project>
+      <Name>WHJ.MvcOA.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WHJ.MvcOA.DALFactory\WHJ.MvcOA.DALFactory.csproj">
+      <Project>{05d62d5e-92b3-40ce-b2a0-e1a4548a979b}</Project>
+      <Name>WHJ.MvcOA.DALFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WHJ.MvcOA.DI\WHJ.MvcOA.DI.csproj">
+      <Project>{0839fabf-623b-4be1-9cb7-9b3a7a64b0a3}</Project>
+      <Name>WHJ.MvcOA.DI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WHJ.MvcOA.IBLL\WHJ.MvcOA.IBLL.csproj">
+      <Project>{04d89629-c3e0-43a8-be99-eedfbad8e161}</Project>
+      <Name>WHJ.MvcOA.IBLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WHJ.MvcOA.IDAL\WHJ.MvcOA.IDAL.csproj">
+      <Project>{28d538ea-2ed0-4bea-938c-619e88cc89ec}</Project>
+      <Name>WHJ.MvcOA.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WHJ.MvcOA.Model\WHJ.MvcOA.Model.csproj">
+      <Project>{d0343296-8e61-461f-a075-4996567a37fa}</Project>
+      <Name>WHJ.MvcOA.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

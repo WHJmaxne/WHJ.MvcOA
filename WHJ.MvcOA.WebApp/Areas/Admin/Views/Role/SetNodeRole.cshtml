@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "设置角色权限";
+}
+@model WHJ.MvcOA.Model.ViewModel.RolePerssion
+
+@section headSection{
+    <script type="text/javascript">
+         $(function () {
+             $("#btnSetPer,#btnSetPer2").click(setper);
+         })
+
+         function setper() {
+             var nodes = $('#perTree').tree('getChecked');
+             //获取权限id
+             var newPerIds = "";
+             //获取角色id
+             var roleId = @Model.RoleId
+             $.each(nodes, function (index, ele) {
+                 newPerIds += ele.id + ",";
+             });
+             newPerIds = newPerIds + '1,33';
+             $.post("/admin/role/SetNodeRole", { RoleId: roleId, NewPersIds: newPerIds }, function (jsonObj) {
+                 $.processJsonMsg(jsonObj, function () {
+                     $.globalParas.closeComWindow();// 关闭 新增页面
+                 })
+             }, "json");
+         }
+    </script>
+}
+@helper MakeTreeNode(int pId)
+{
+    foreach (var pPermission in Model.AllPers)
+    {
+        if (pPermission.p_parent == pId)
+        { 
+            <li data-options="id:@pPermission.p_id,@if (Model.UserPers.Find(sonP => sonP.p_id == pPermission.p_id) != null)
+                { <text>checked:true</text> }">
+                <span>@pPermission.p_name</span>
+                <!--生成子权限-->
+                <ul>
+                    @MakeTreeNode(pPermission.p_id)
+                </ul>
+            </li>
+        }
+    }
+}
+<input type="button" value="设置权限" id="btnSetPer" />
+<!--生成权限树-->
+<ul id="perTree" class="easyui-tree" data-options="checkbox:true,lines:true">
+    <!--生成父节点-->
+    @MakeTreeNode(1)
+</ul>
+<input type="button" value="设置权限" id="btnSetPer2" />

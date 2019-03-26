@@ -1,0 +1,71 @@
+﻿@model WHJ.MvcOA.Model.ViewModel.UserInfo
+
+@{
+    ViewBag.Title = "修改用户";
+}
+@section headSection{
+    <script type="text/javascript">
+        var udepid=@Model.u_depid
+        function doBegin() {
+            $.msgBoxObj.showMsgWait("修改中...");
+        }
+        function doComplete(xhrObj) {
+            $.processJsonMsg(xhrObj.responseText, function () {
+                window.top.updateTab();
+                $.globalParas.closeComWindow();
+            })
+        }
+        $(function () {
+            $('#u_depid').val(udepid);
+        });
+    </script>
+}
+
+@using (Ajax.BeginForm("Modify", new { area = "Admin", controller = "User" }, new AjaxOptions
+{
+    OnBegin = "doBegin",
+    OnComplete = "doComplete",
+    HttpMethod = "post"
+}))
+{
+
+    <table id="tbAdd" class="tbList">
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.u_name)</td>
+            <td>@Html.TextBoxFor(p => p.u_name)</td>
+            <td>@Html.ValidationMessageFor(p => p.u_name)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.u_pwd)</td>
+            <td>@Html.PasswordFor(p => p.u_pwd)</td>
+            <td>@Html.ValidationMessageFor(p => p.u_pwd)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.u_depid)</td>
+            <td colspan="2">
+                @Html.DropDownListFor(p => p.u_depid, ViewBag.department as IEnumerable<SelectListItem>)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.real_name)</td>
+            <td>@Html.TextBoxFor(p => p.real_name)</td>
+            <td>@Html.ValidationMessageFor(p => p.real_name)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.u_email)</td>
+            <td>@Html.TextBoxFor(p => p.u_email)</td>
+            <td>@Html.ValidationMessageFor(p => p.u_email)</td>
+        </tr>
+        <tr>
+            <td>@Html.DisplayNameFor(p => p.u_telephone)</td>
+            <td>@Html.TextBoxFor(p => p.u_telephone)</td>
+            <td>@Html.ValidationMessageFor(p => p.u_telephone)</td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <input type="submit" value="确定" />
+                @Html.HiddenFor(p=>p.user_id)
+            </td>
+        </tr>
+    </table>
+}

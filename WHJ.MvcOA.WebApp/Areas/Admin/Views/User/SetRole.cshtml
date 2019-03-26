@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "设置用户角色";
+}
+
+@section headSection{
+    <script type="text/javascript">
+        var uId =@ViewBag.uId
+        $(function () {
+            $('#btnSetRole').click(setRole);
+        })
+        function setRole() {
+            $.msgBoxObj.showMsgWait('数据提交中...');
+            //获取到选中的value值数组
+            var roleIds = $('#setRoles').combo('getValues');
+            var roleIdStr = '';
+            $.each(roleIds, function (index, val) {
+                if (index==roleIds.length-1) {
+                    roleIdStr += val;
+                } else {
+                    roleIdStr += val + ',';
+                }
+            });
+            //发送ajax请求到服务器，将 uid 和 角色id字符串发送到服务器
+            $.post('/Admin/User/SetRole', { UserId: uId, RoleIds: roleIdStr }, function (data) {
+                $.processJsonMsg(data, function (json) {
+                    window.top.updateTab();
+                    window.top.topHelper.closeComWindow();
+                });
+            }, 'json');
+        }
+    </script>
+}
+<table>
+    <tr>
+        <td>用户角色</td>
+        <td>
+            <select id="setRoles" class="easyui-combobox" data-options="multiple:true" name="setRoles" style="width:200px;">
+                @foreach (var item in ViewBag.depRole as IEnumerable<WHJ.MvcOA.Model.Role>)
+                {
+                    <option value="@item.r_id">@item.r_name</option>
+                }
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td><input type="submit" id="btnSetRole" value="设置角色" /></td>
+    </tr>
+</table>
+
